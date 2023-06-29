@@ -1,4 +1,9 @@
+import 'dart:collection';
+
 void algo() {
   print("hello");
 }
-// TODO@Supermages bobo
+
+void kiko() {
+  print("kiko jones");
+}
