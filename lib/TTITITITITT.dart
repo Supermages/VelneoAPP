@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 void algo() {
   print("hello");
   print("tumadrejiijijiji");
@@ -6,4 +8,7 @@ void algo() {
 void suma() {
   print(1 + 1);
 }
-// TODO@Supermages bobo
+
+void kiko() {
+  print("kiko jones");
+}
