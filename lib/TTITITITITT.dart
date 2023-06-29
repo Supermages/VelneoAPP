@@ -1,0 +1,3 @@
+void algo() {
+  print("hello");
+}
