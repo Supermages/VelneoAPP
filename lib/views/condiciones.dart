@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:velneoapp/views/firma.dart';
+import 'package:velneoapp/views/firma_old_pruebas.dart';
 
 class TerminosPage extends StatefulWidget {
   const TerminosPage({Key? key}) : super(key: key);
@@ -54,7 +55,7 @@ class _TerminosPageState extends State<TerminosPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const FirmaPage(),
+                      builder: (context) => const FirmaOldPage(),
                     ),
                   );
                 } else {
