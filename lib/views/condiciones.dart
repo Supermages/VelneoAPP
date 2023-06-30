@@ -14,73 +14,90 @@ class _TerminosPageState extends State<TerminosPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Condiciones'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'LEE Y MARCA LAS CASILLAS PARA PODER VENDER TU RIÑÓN:',
-              style: TextStyle(fontSize: 18),
-            ),
-            const SizedBox(height: 16),
-            CheckboxListTile(
-              title: const Text('LOPD'),
-              value: isChecked1,
-              onChanged: (value) {
-                setState(() {
-                  isChecked1 = value!;
-                });
-              },
-            ),
-            CheckboxListTile(
-              title: const Text('Condiciones'),
-              value: isChecked2,
-              onChanged: (value) {
-                setState(() {
-                  isChecked2 = value!;
-                });
-              },
-            ),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: () {
-                if (isChecked1 && isChecked2) {
-                  // Navegar a la siguiente página
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const FirmaPage(),
-                    ),
-                  );
-                } else {
-                  // Mostrar mensaje de error
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: const Text('No se ha podido continuar'),
-                      content: const Text(
-                        'Por favor, marque ambos términos para continuar.',
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Condiciones'),
+          bottom: const TabBar(tabs: [
+            Tab(text: "LOPD"),
+            Tab(text: "Condiciones"),
+          ]),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SingleChildScrollView(
+                child: SizedBox(
+                  height: (MediaQuery.of(context).size.height) * 0.49,
+                  width: (MediaQuery.of(context).size.width) * 0.49,
+                  child: const TabBarView(children: [
+                    Text("Ejemplo"),
+                    Text("Ejemplo"),
+                  ]),
+                ),
+              ),
+              const Text(
+                'LEE Y MARCA LAS CASILLAS PARA PODER VENDER TU RIÑÓN:',
+                style: TextStyle(fontSize: 18),
+              ),
+              const SizedBox(height: 16),
+              CheckboxListTile(
+                title: const Text('LOPD'),
+                value: isChecked1,
+                onChanged: (value) {
+                  setState(() {
+                    if (isChecked1 = false) isChecked1 = value!;
+                  });
+                },
+              ),
+              CheckboxListTile(
+                title: const Text('Condiciones'),
+                value: isChecked2,
+                onChanged: (value) {
+                  setState(() {
+                    isChecked2 = value!;
+                  });
+                },
+              ),
+              const SizedBox(height: 24),
+              ElevatedButton(
+                onPressed: () {
+                  if (isChecked1 && isChecked2) {
+                    // Navegar a la siguiente página
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const FirmaPage(),
                       ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('Aceptar'),
+                    );
+                  } else {
+                    // Mostrar mensaje de error
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('No se ha podido continuar'),
+                        content: const Text(
+                          'Por favor, marque ambos términos para continuar.',
                         ),
-                      ],
-                    ),
-                  );
-                }
-              },
-              child: const Text('Aceptar'),
-            ),
-          ],
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Aceptar'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                },
+                child: const Text('Aceptar'),
+              ),
+            ],
+          ),
         ),
       ),
     );
