@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
         itemCount: facturasDeVenta?.length,
         itemBuilder: (context, index) {
           return Container(
-            child: Text("Ejemplo"),
+            child: const Text("Ejemplo"),
           );
         },
       ),
