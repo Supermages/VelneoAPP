@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:velneoapp/routes/constants.dart';
 import 'package:velneoapp/views/firma.dart';
 
 class TerminosPage extends StatefulWidget {
@@ -31,14 +32,15 @@ class _TerminosPageState extends State<TerminosPage> {
             children: [
               SingleChildScrollView(
                 child: SizedBox(
-                  height: (MediaQuery.of(context).size.height) * 0.49,
-                  width: (MediaQuery.of(context).size.width) * 0.49,
+                  height: (MediaQuery.of(context).size.height) * 0.46,
+                  width: (MediaQuery.of(context).size.width) * 0.46,
                   child: const TabBarView(children: [
                     Text("Ejemplo"),
                     Text("Ejemplo"),
                   ]),
                 ),
               ),
+              const Divider(color: Colors.black),
               const Text(
                 'LEE Y MARCA LAS CASILLAS PARA PODER VENDER TU RIÑÓN:',
                 style: TextStyle(fontSize: 18),
@@ -49,7 +51,7 @@ class _TerminosPageState extends State<TerminosPage> {
                 value: isChecked1,
                 onChanged: (value) {
                   setState(() {
-                    if (isChecked1 = false) isChecked1 = value!;
+                    isChecked1 = value!;
                   });
                 },
               ),
@@ -67,12 +69,7 @@ class _TerminosPageState extends State<TerminosPage> {
                 onPressed: () {
                   if (isChecked1 && isChecked2) {
                     // Navegar a la siguiente página
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const FirmaPage(),
-                      ),
-                    );
+                    Navigator.pushNamed(context, firmaRoute);
                   } else {
                     // Mostrar mensaje de error
                     showDialog(

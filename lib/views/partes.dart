@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import "package:velneoapp/api/api_model.dart";
-import 'package:velneoapp/api/api_remote_services.dart';
 
 class PartesView extends StatefulWidget {
   const PartesView({super.key});
