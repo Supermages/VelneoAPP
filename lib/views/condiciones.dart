@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:velneoapp/routes/constants.dart';
-import 'package:velneoapp/views/firma.dart';
-import 'package:velneoapp/views/firma_old_pruebas.dart';
 
 class TerminosPage extends StatefulWidget {
   const TerminosPage({Key? key}) : super(key: key);
@@ -14,6 +12,14 @@ class _TerminosPageState extends State<TerminosPage> {
   bool isChecked1 = false;
   bool isChecked2 = false;
 
+  TabBar get _tabBar => const TabBar(
+        indicatorColor: Colors.red,
+        tabs: [
+          Tab(text: "LOPD"),
+          Tab(text: "Condiciones"),
+        ],
+      );
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -21,10 +27,13 @@ class _TerminosPageState extends State<TerminosPage> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Condiciones'),
-          bottom: const TabBar(tabs: [
-            Tab(text: "LOPD"),
-            Tab(text: "Condiciones"),
-          ]),
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(50),
+            child: Material(
+              color: Colors.blue,
+              child: _tabBar,
+            ),
+          ),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
@@ -66,7 +75,12 @@ class _TerminosPageState extends State<TerminosPage> {
                 },
               ),
               const SizedBox(height: 24),
-              ElevatedButton(
+              ElevatedButton.icon(
+                icon: Icon(Icons.check),
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.green),
+                ),
                 onPressed: () {
                   if (isChecked1 && isChecked2) {
                     // Navegar a la siguiente página
@@ -81,18 +95,23 @@ class _TerminosPageState extends State<TerminosPage> {
                           'Por favor, marque ambos términos para continuar.',
                         ),
                         actions: [
-                          TextButton(
+                          ElevatedButton.icon(
+                            icon: Icon(Icons.check),
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: const Text('Aceptar'),
+                            label: const Text('Aceptar'),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.green),
+                            ),
                           ),
                         ],
                       ),
                     );
                   }
                 },
-                child: const Text('Aceptar'),
+                label: const Text('Aceptar'),
               ),
             ],
           ),
