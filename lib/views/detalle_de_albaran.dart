@@ -10,6 +10,16 @@ class DetalleDeAlbaranView extends StatefulWidget {
 class _DetalleDeAlbaranViewState extends State<DetalleDeAlbaranView> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Detalle de albaranes"),
+      ),
+      body: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Column(
+          children: [Text("Hola")],
+        ),
+      ),
+    );
   }
 }

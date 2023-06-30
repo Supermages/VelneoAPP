@@ -35,8 +35,8 @@ class _TerminosPageState extends State<TerminosPage> {
                   height: (MediaQuery.of(context).size.height) * 0.46,
                   width: (MediaQuery.of(context).size.width) * 0.46,
                   child: const TabBarView(children: [
-                    Text("Ejemplo"),
-                    Text("Ejemplo"),
+                    Text("Ejemplo1"),
+                    Text("Ejemplo2"),
                   ]),
                 ),
               ),

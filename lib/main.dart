@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:velneoapp/views/albaranes.dart';
 import 'package:velneoapp/views/condiciones.dart';
+import 'package:velneoapp/views/detalle_de_albaran.dart';
+import 'package:velneoapp/views/detalle_de_parte.dart';
 import 'package:velneoapp/views/eleccion.dart';
 import 'package:velneoapp/views/entrada.dart';
 import 'package:velneoapp/views/firma.dart';
@@ -23,6 +25,8 @@ class MyApp extends StatelessWidget {
           entradaRoute: (context) => const EntradaView(),
           eleccionRoute: (context) => const EleccionView(),
           firmaRoute: (context) => const FirmaView(),
+          detalleDeAlbaranesRoute: (context) => const DetalleDeAlbaranView(),
+          detalleDePartesRoute: (context) => const DetalleDePartesView(),
         },
         theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue)),

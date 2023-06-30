@@ -1,6 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import "package:velneoapp/api/api_model.dart";
 import 'package:velneoapp/api/api_remote_services.dart';
+import 'package:velneoapp/routes/constants.dart';
 
 class AlbaranesVentaView extends StatefulWidget {
   const AlbaranesVentaView({super.key});
@@ -25,10 +27,21 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
         title: const Text("Albaranes"),
       ),
       body: ListView.builder(
-        itemCount: facturasDeVenta?.length,
+        itemCount: 10,
         itemBuilder: (context, index) {
-          return Container(
-            child: const Text("Albaran"),
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: RichText(
+              text: TextSpan(
+                  text: "Albaranes",
+                  style: const TextStyle(
+                    color: Colors.black,
+                  ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      Navigator.pushNamed(context, detalleDeAlbaranesRoute);
+                    }),
+            ),
           );
         },
       ),
