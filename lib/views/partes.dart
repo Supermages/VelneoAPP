@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import "package:velneoapp/api/api_model.dart";
 import 'package:velneoapp/api/api_remote_services.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class PartesView extends StatefulWidget {
+  const PartesView({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<PartesView> createState() => _PartesViewState();
 }
 
 List<PedVta>? facturasDeVenta;
 var isLoaded = false;
 
-class _HomePageState extends State<HomePage> {
+class _PartesViewState extends State<PartesView> {
   @override
   void initState() {
     super.initState();
@@ -22,13 +22,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Próximamente."),
+        title: const Text("Partes"),
       ),
       body: ListView.builder(
         itemCount: facturasDeVenta?.length,
         itemBuilder: (context, index) {
           return Container(
-            child: const Text("Ejemplo"),
+            child: const Text("Partes"),
           );
         },
       ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:velneoapp/views/albaranes.dart';
+import 'package:velneoapp/views/partes.dart';
 
 class EleccionPage extends StatefulWidget {
   const EleccionPage({Key? key}) : super(key: key);
@@ -28,7 +30,7 @@ class _EleccionPageState extends State<EleccionPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const PartesPage(),
+                    builder: (context) => const PartesView(),
                   ),
                 );
               },
@@ -47,7 +49,7 @@ class _EleccionPageState extends State<EleccionPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const AlbaranesPage(),
+                    builder: (context) => const AlbaranesVentaView(),
                   ),
                 );
               },
@@ -62,36 +64,6 @@ class _EleccionPageState extends State<EleccionPage> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class PartesPage extends StatelessWidget {
-  const PartesPage({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Partes de venta'),
-      ),
-      body: const Text(
-        ('Aquí iría partes'),
-      ),
-    );
-  }
-}
-
-class AlbaranesPage extends StatelessWidget {
-  const AlbaranesPage({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Albaranes de venta'),
-      ),
-      body: const Text(
-        ('Aquí iría albaranes'),
       ),
     );
   }
