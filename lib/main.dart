@@ -26,7 +26,9 @@ class MyApp extends StatelessWidget {
           eleccionRoute: (context) => const EleccionView(),
           firmaRoute: (context) => const FirmaView(),
           detalleDeAlbaranesRoute: (context) => const DetalleDeAlbaranView(),
-          detalleDePartesRoute: (context) => const DetalleDePartesView(),
+          detalleDePartesRoute: (context) => const DetalleDePartesView(
+                id: 0,
+              ),
         },
         theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue)),

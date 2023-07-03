@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 
-class DetalleDePartesView extends StatefulWidget {
-  const DetalleDePartesView({super.key});
+class DetalleDePartesView extends StatelessWidget {
+  final int id;
 
-  @override
-  State<DetalleDePartesView> createState() => _DetalleDePartesViewState();
-}
+  const DetalleDePartesView({super.key, required this.id});
 
-class _DetalleDePartesViewState extends State<DetalleDePartesView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Detalle de partes"),
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(8.0),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Column(
-          children: [Text("Hola")],
+          children: [Text("$id")],
         ),
       ),
     );

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import "package:velneoapp/api/api_model.dart";
-import 'package:velneoapp/api/api_que%20_funciona.dart';
 
 var api;
 Map map = {};
@@ -12,7 +10,6 @@ class AlbaranesVentaView extends StatefulWidget {
   State<AlbaranesVentaView> createState() => _AlbaranesVentaViewState();
 }
 
-List<PedVta>? facturasDeVenta;
 var isLoaded = false;
 
 class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
