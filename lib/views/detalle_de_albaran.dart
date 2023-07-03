@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DetalleDeAlbaranView extends StatefulWidget {
-  const DetalleDeAlbaranView({super.key});
+  const DetalleDeAlbaranView({super.key, required index});
 
   @override
   State<DetalleDeAlbaranView> createState() => _DetalleDeAlbaranViewState();
