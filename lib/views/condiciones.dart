@@ -28,7 +28,7 @@ class _TerminosPageState extends State<TerminosPage> {
         appBar: AppBar(
           title: const Text('Condiciones'),
           bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(50),
+            preferredSize: Size.fromHeight(50),
             child: Material(
               color: Colors.blue,
               child: _tabBar,
@@ -42,10 +42,9 @@ class _TerminosPageState extends State<TerminosPage> {
             children: [
               SingleChildScrollView(
                 child: SizedBox(
-                  height: (MediaQuery.of(context).size.height) * 0.46,
-                  width: (MediaQuery.of(context).size.width) * 0.46,
+                  height: MediaQuery.of(context).size.height - 473,
                   child: const TabBarView(children: [
-                    Text("Ejemplo1"),
+                    Text("Ejemplo1 "),
                     Text("Ejemplo2"),
                   ]),
                 ),
@@ -76,7 +75,7 @@ class _TerminosPageState extends State<TerminosPage> {
               ),
               const SizedBox(height: 24),
               ElevatedButton.icon(
-                icon: const Icon(Icons.check),
+                icon: Icon(Icons.check),
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.green),
@@ -96,7 +95,7 @@ class _TerminosPageState extends State<TerminosPage> {
                         ),
                         actions: [
                           ElevatedButton.icon(
-                            icon: const Icon(Icons.check),
+                            icon: Icon(Icons.check),
                             onPressed: () {
                               Navigator.pop(context);
                             },
