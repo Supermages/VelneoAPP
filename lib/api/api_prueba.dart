@@ -46,7 +46,7 @@ class PedidosDeVenta {
   Map<String, dynamic> toJson() => {
         "count": count,
         "total_count": totalCount,
-        "vta_ped_g": List<dynamic>.from(vtaPedG.map((x) => x.toJson())),
+        // "vta_ped_g": List<dynamic>.from(vtaPedG.map((x) => x.toJson())),
       };
 }
 
@@ -104,7 +104,7 @@ class _MyApppState extends State<MyAppp> {
             future: futureVtaPedG,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return Text(snapshot.data!.emp);
+                // return Text(snapshot.data!.emp);
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
               }

@@ -2,13 +2,13 @@
 //
 //     final facturasDeVenta = facturasDeVentaFromJson(jsonString);
 
-// import 'dart:convert';
+import 'dart:convert';
 
 FacturasDeVenta facturasDeVentaFromJson(String str) =>
     FacturasDeVenta.fromJson(json.decode(str));
 
-// String facturasDeVentaToJson(FacturasDeVenta data) =>
-//     json.encode(data.toJson());
+String facturasDeVentaToJson(FacturasDeVenta data) =>
+    json.encode(data.toJson());
 
 class FacturasDeVenta {
   int count;
@@ -37,9 +37,9 @@ class FacturasDeVenta {
 }
 
 class VtaPedG {
-  int? id;
-  int? clt;
-  int? emp;
+  int id;
+  int clt;
+  String emp;
 
   VtaPedG({
     required this.id,
@@ -48,14 +48,14 @@ class VtaPedG {
   });
 
   factory VtaPedG.fromJson(Map<String, dynamic> json) => VtaPedG(
-        id: json["id"] as int?,
-        clt: json["clt"] as int?,
-        emp: json["emp"] as int?,
+        id: json["id"] as int,
+        clt: json["clt"] as int,
+        emp: json["emp"] as String,
       );
 
-//   Map<String, dynamic> toJson() => {
-//         "id": id,
-//         "clt": clt,
-//         "emp": emp,
-//       };
-// }
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "clt": clt,
+        "emp": emp,
+      };
+}

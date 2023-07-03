@@ -1,11 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import "package:velneoapp/api/api_model.dart";
-import 'package:velneoapp/api/api_prueba.dart';
-import 'package:velneoapp/routes/constants.dart';
 
 class PartesView extends StatefulWidget {
   const PartesView({super.key});
@@ -37,14 +34,14 @@ class _PartesViewState extends State<PartesView> {
       log("${res.statusCode}");
       if (res.statusCode == 200) {
         print("jiji");
-        dataFromAPI = await FacturasDeVenta.fromJson(json.decode(res.body));
+        dataFromAPI = FacturasDeVenta.fromJson(json.decode(res.body));
         _isLoaded = false;
         setState(() {});
       } else {
         throw ("NONOAAAAAAA");
       }
     } catch (e) {
-      print("NONO");
+      print("no funciona");
       log(e.toString());
     }
   }
@@ -67,8 +64,9 @@ class _PartesViewState extends State<PartesView> {
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      Text("\$${dataFromAPI!.vtaPedGs[index].id.toString()}"),
-                      Text("\$${dataFromAPI!.vtaPedGs[index].clt.toString()}"),
+                      Text("\$${dataFromAPI!.vtaPedGs[index].id.toInt()}"),
+                      Text("\$${dataFromAPI!.vtaPedGs[index].clt.toInt()}"),
+                      Text("\$${dataFromAPI!.vtaPedGs[index].emp.toString()}"),
                     ],
                   ),
                 );

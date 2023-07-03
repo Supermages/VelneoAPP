@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'VelneoAPP',
         routes: {
-          partesRoute: (context) => const MyAppp(),
+          partesRoute: (context) => const PartesView(),
           albaranesRoute: (context) => const AlbaranesVentaView(),
           entradaRoute: (context) => const EntradaView(),
           eleccionRoute: (context) => const EleccionView(),
