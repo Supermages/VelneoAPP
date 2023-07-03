@@ -21,7 +21,7 @@ class _PartesViewState extends State<PartesView> {
     _getData();
   }
 
-  FacturasDeVenta? dataFromAPI;
+  Partes? dataFromAPI;
   _getData() async {
     try {
       String url =
@@ -30,7 +30,7 @@ class _PartesViewState extends State<PartesView> {
       log("001");
       if (res.statusCode == 200) {
         log("jiji");
-        dataFromAPI = FacturasDeVenta.fromJson(json.decode(res.body));
+        dataFromAPI = Partes.fromJson(json.decode(res.body));
         _isLoaded = false;
         setState(() {});
       } else {
