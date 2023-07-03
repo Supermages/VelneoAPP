@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import "package:velneoapp/api/api_model.dart";
+import 'package:velneoapp/api/modelos/api_model_partes.dart';
 import 'package:velneoapp/views/detalle_de_parte.dart';
 
 class PartesView extends StatefulWidget {
