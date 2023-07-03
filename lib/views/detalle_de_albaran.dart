@@ -11,8 +11,6 @@ class DetalleDeAlbaranView extends StatefulWidget {
   State<DetalleDeAlbaranView> createState() => _DetalleDeAlbaranViewState();
 }
 
-//
-
 class _DetalleDeAlbaranViewState extends State<DetalleDeAlbaranView> {
   @override
   void initState() {
@@ -20,7 +18,7 @@ class _DetalleDeAlbaranViewState extends State<DetalleDeAlbaranView> {
     _getData();
   }
 
-  bool _isLoaded = true;
+  bool _isLoaded = false;
 
   AlbaranesDeVentaDetalle? dataFromAPI;
   _getData() async {
@@ -28,18 +26,18 @@ class _DetalleDeAlbaranViewState extends State<DetalleDeAlbaranView> {
       String url =
           "https://demoapi.velneo.com/verp-api/vERP_2_dat_dat/v1/vta_fac_g/3?api_key=api123";
       http.Response res = await http.get(Uri.parse(url));
-      log("001");
+      log(res.body);
       if (res.statusCode == 200) {
-        log("jiji");
+        log("hecho");
         dataFromAPI = AlbaranesDeVentaDetalle.fromJson(json.decode(res.body));
-        _isLoaded = false;
+        _isLoaded = true;
         setState(() {});
       } else {
-        throw ("NONOAAAAAAA");
+        throw ("Error during connection");
       }
     } catch (e) {
-      log("NONO");
-      log(e.toString());
+      log("Error");
+      print(e.toString());
     }
   }
 
@@ -51,35 +49,25 @@ class _DetalleDeAlbaranViewState extends State<DetalleDeAlbaranView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Detalle de albaranes"),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                const Text("ID: "),
-                Text(dataFromAPI!.vtaFacG.fch as String),
-              ],
+    return _isLoaded
+        ? Scaffold(
+            appBar: AppBar(
+              title: const Text("Detalle de albaranes"),
             ),
-            Row(
-              children: [
-                const Text("CLT: "),
-                Text("${dataFromAPI!.vtaFacG.fch}"),
-              ],
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      const Text("TOTFAC: "),
+                      Text("${dataFromAPI!.vtaFacG[0].clt}"),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            Row(
-              children: [
-                const Text("EMP: "),
-                Text(dataFromAPI!.vtaFacG.totFac as String),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
+          )
+        : Container();
   }
 }
