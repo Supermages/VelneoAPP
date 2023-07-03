@@ -10,7 +10,6 @@ class AlbaranesVentaView extends StatefulWidget {
   State<AlbaranesVentaView> createState() => _AlbaranesVentaViewState();
 }
 
-List<PedVta>? facturasDeVenta;
 var isLoaded = false;
 
 class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
