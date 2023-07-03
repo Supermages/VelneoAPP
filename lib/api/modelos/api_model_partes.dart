@@ -4,29 +4,25 @@
 
 import 'dart:convert';
 
-FacturasDeVenta facturasDeVentaFromJson(String str) =>
-    FacturasDeVenta.fromJson(json.decode(str));
+Partes partesFromJson(String str) => Partes.fromJson(json.decode(str));
 
-String facturasDeVentaToJson(FacturasDeVenta data) =>
-    json.encode(data.toJson());
+String partesToJson(Partes data) => json.encode(data.toJson());
 
-class FacturasDeVenta {
+class Partes {
   int count;
   int totalCount;
-  List<VtaPedG> vtaPedGs;
+  List<Prt> vtaPedGs;
 
-  FacturasDeVenta({
+  Partes({
     required this.count,
     required this.totalCount,
     required this.vtaPedGs,
   });
 
-  factory FacturasDeVenta.fromJson(Map<String, dynamic> json) =>
-      FacturasDeVenta(
+  factory Partes.fromJson(Map<String, dynamic> json) => Partes(
         count: json["count"],
         totalCount: json["total_count"],
-        vtaPedGs: List<VtaPedG>.from(
-            json["vta_ped_g"].map((x) => VtaPedG.fromJson(x))),
+        vtaPedGs: List<Prt>.from(json["vta_ped_g"].map((x) => Prt.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -36,18 +32,18 @@ class FacturasDeVenta {
       };
 }
 
-class VtaPedG {
+class Prt {
   int id;
   int clt;
   String emp;
 
-  VtaPedG({
+  Prt({
     required this.id,
     required this.clt,
     required this.emp,
   });
 
-  factory VtaPedG.fromJson(Map<String, dynamic> json) => VtaPedG(
+  factory Prt.fromJson(Map<String, dynamic> json) => Prt(
         id: json["id"],
         clt: json["clt"],
         emp: json["emp"],
