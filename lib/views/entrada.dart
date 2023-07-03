@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:velneoapp/views/eleccion.dart';
 
-class EntradaPage extends StatelessWidget {
-  const EntradaPage({Key? key}) : super(key: key);
+class EntradaView extends StatelessWidget {
+  const EntradaView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class EntradaPage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const EleccionPage(),
+                    builder: (context) => const EleccionView(),
                   ),
                 );
               },

@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:velneoapp/views/albaranes.dart';
-import 'package:velneoapp/views/partes.dart';
+import 'package:velneoapp/routes/constants.dart';
 
-class EleccionPage extends StatefulWidget {
-  const EleccionPage({Key? key}) : super(key: key);
+class EleccionView extends StatefulWidget {
+  const EleccionView({Key? key}) : super(key: key);
 
   @override
-  State<EleccionPage> createState() => _EleccionPageState();
+  State<EleccionView> createState() => _EleccionViewState();
 }
 
-class _EleccionPageState extends State<EleccionPage> {
+class _EleccionViewState extends State<EleccionView> {
   @override
   void initState() {
     super.initState();
@@ -27,12 +26,7 @@ class _EleccionPageState extends State<EleccionPage> {
           children: [
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const PartesView(),
-                  ),
-                );
+                Navigator.pushNamed(context, partesRoute);
               },
               style: ElevatedButton.styleFrom(
                 padding:
@@ -46,12 +40,7 @@ class _EleccionPageState extends State<EleccionPage> {
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AlbaranesVentaView(),
-                  ),
-                );
+                Navigator.pushNamed(context, albaranesRoute);
               },
               style: ElevatedButton.styleFrom(
                 padding:

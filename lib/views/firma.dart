@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:velneoapp/views/eleccion.dart';
+import 'package:velneoapp/routes/constants.dart';
 
-class FirmaPage extends StatefulWidget {
-  const FirmaPage({Key? key}) : super(key: key);
+class FirmaView extends StatefulWidget {
+  const FirmaView({Key? key}) : super(key: key);
 
   @override
-  State<FirmaPage> createState() => _FirmaPageState();
+  State<FirmaView> createState() => _FirmaViewState();
 }
 
-class _FirmaPageState extends State<FirmaPage> {
+class _FirmaViewState extends State<FirmaView> {
   bool isFirmado = false;
 
   @override
@@ -46,12 +46,8 @@ class _FirmaPageState extends State<FirmaPage> {
                 onPressed: () {
                   if (isFirmado) {
                     // Navegar a la página de elección
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const EleccionPage(),
-                      ),
-                    );
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, eleccionRoute, (route) => false);
                   } else {
                     // Mostrar mensaje de error
                     showDialog(
@@ -60,11 +56,16 @@ class _FirmaPageState extends State<FirmaPage> {
                         title: const Text('No se ha podido continuar'),
                         content: const Text('Por favor, firma para continuar.'),
                         actions: [
-                          TextButton(
+                          ElevatedButton.icon(
+                            icon: Icon(Icons.check),
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: const Text('Aceptar'),
+                            label: const Text('Aceptar'),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.green),
+                            ),
                           ),
                         ],
                       ),
