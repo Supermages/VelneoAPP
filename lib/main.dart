@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:velneoapp/api/api_prueba.dart';
 import 'package:velneoapp/views/albaranes.dart';
 import 'package:velneoapp/views/condiciones.dart';
 import 'package:velneoapp/views/detalle_de_albaran.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'VelneoAPP',
         routes: {
-          partesRoute: (context) => const PartesView(),
+          partesRoute: (context) => const MyAppp(),
           albaranesRoute: (context) => const AlbaranesVentaView(),
           entradaRoute: (context) => const EntradaView(),
           eleccionRoute: (context) => const EleccionView(),

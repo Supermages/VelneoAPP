@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:open_file/open_file.dart';
 import 'package:universal_html/html.dart' show AnchorElement;
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:velneoapp/routes/constants.dart';
 import 'dart:convert';
 import "dart:developer";
 import 'package:velneoapp/views/ada.dart';
@@ -93,6 +94,7 @@ class _FirmaOldPageState extends State<FirmaOldPage> {
                     OpenFile.open(fileName);
                   }
                   //}
+                  Navigator.pushNamed(context, eleccionRoute);
                 },
                 icon: const Icon(
                   Icons.image,
