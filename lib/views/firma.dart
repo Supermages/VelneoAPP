@@ -57,7 +57,7 @@ class _FirmaViewState extends State<FirmaView> {
                         content: const Text('Por favor, firma para continuar.'),
                         actions: [
                           ElevatedButton.icon(
-                            icon: Icon(Icons.check),
+                            icon: const Icon(Icons.check),
                             onPressed: () {
                               Navigator.pop(context);
                             },

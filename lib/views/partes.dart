@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import "package:velneoapp/api/api_model.dart";
-import 'package:velneoapp/routes/constants.dart';
+import 'package:velneoapp/views/detalle_de_parte.dart';
 
 class PartesView extends StatefulWidget {
   const PartesView({super.key});
@@ -15,15 +14,10 @@ class PartesView extends StatefulWidget {
 
 class _PartesViewState extends State<PartesView> {
   bool _isLoaded = true;
+
   @override
   void initState() {
     super.initState();
-    _getData();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
     _getData();
   }
 
@@ -33,19 +27,25 @@ class _PartesViewState extends State<PartesView> {
       String url =
           "https://demoapi.velneo.com/verp-api/vERP_2_dat_dat/v1/vta_ped_g?page%5Bsize%5D=20&fields=id,clt,emp&api_key=api123";
       http.Response res = await http.get(Uri.parse(url));
-      log("${res.statusCode}");
+      log("001");
       if (res.statusCode == 200) {
-        print("jiji");
-        dataFromAPI = await FacturasDeVenta.fromJson(json.decode(res.body));
+        log("jiji");
+        dataFromAPI = FacturasDeVenta.fromJson(json.decode(res.body));
         _isLoaded = false;
         setState(() {});
       } else {
         throw ("NONOAAAAAAA");
       }
     } catch (e) {
-      print("NONO");
+      log("NONO");
       log(e.toString());
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _getData();
   }
 
   @override
@@ -64,11 +64,38 @@ class _PartesViewState extends State<PartesView> {
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Text("\$${dataFromAPI!.vtaPedGs[index].id.toString()}"),
-                      Text("\$${dataFromAPI!.vtaPedGs[index].clt.toString()}"),
-                    ],
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DetalleDePartesView(
+                                  id: dataFromAPI!.vtaPedGs[index].id,
+                                )),
+                      );
+                    },
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            const Text("ID: "),
+                            Text("${dataFromAPI!.vtaPedGs[index].id}"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Text("CLT: "),
+                            Text("${dataFromAPI!.vtaPedGs[index].clt}"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Text("EMP: "),
+                            Text(dataFromAPI!.vtaPedGs[index].emp),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },

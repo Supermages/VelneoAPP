@@ -1,6 +1,6 @@
 // To parse this JSON data, do
 //
-//     final facturasDeVenta = facturasDeVentaFromJson(jsonString);
+// final facturasDeVenta = facturasDeVentaFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -37,9 +37,9 @@ class FacturasDeVenta {
 }
 
 class VtaPedG {
-  int? id;
-  int? clt;
-  int? emp;
+  int id;
+  int clt;
+  String emp;
 
   VtaPedG({
     required this.id,
@@ -48,9 +48,9 @@ class VtaPedG {
   });
 
   factory VtaPedG.fromJson(Map<String, dynamic> json) => VtaPedG(
-        id: json["id"] as int?,
-        clt: json["clt"] as int?,
-        emp: json["emp"] as int?,
+        id: json["id"],
+        clt: json["clt"],
+        emp: json["emp"],
       );
 
   Map<String, dynamic> toJson() => {
