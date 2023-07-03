@@ -26,10 +26,10 @@ class MyApp extends StatelessWidget {
           eleccionRoute: (context) => const EleccionView(),
           firmaRoute: (context) => const FirmaView(),
           detalleDeAlbaranesRoute: (context) => const DetalleDeAlbaranView(
-                index: 2,
+                index: 3,
               ),
           detalleDePartesRoute: (context) => const DetalleDePartesView(
-                id: 0,
+                id: 3,
               ),
         },
         theme: ThemeData(

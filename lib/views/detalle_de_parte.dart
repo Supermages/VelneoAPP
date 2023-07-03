@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
-class DetalleDePartesView extends StatelessWidget {
+class DetalleDePartesView extends StatefulWidget {
   final int id;
 
   const DetalleDePartesView({super.key, required this.id});
 
+  @override
+  State<DetalleDePartesView> createState() => _DetalleDePartesViewState();
+}
+
+class _DetalleDePartesViewState extends State<DetalleDePartesView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +19,7 @@ class DetalleDePartesView extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          children: [Text("$id")],
+          children: [Text("${widget.id}")],
         ),
       ),
     );
