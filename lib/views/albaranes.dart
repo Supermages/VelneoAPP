@@ -1,8 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import "package:velneoapp/api/api_model.dart";
-import 'package:velneoapp/api/api_prueba.dart';
-import 'package:velneoapp/api/api_remote_services.dart';
 import 'package:velneoapp/routes/constants.dart';
 
 class AlbaranesVentaView extends StatefulWidget {
@@ -12,7 +10,6 @@ class AlbaranesVentaView extends StatefulWidget {
   State<AlbaranesVentaView> createState() => _AlbaranesVentaViewState();
 }
 
-List<PedVta>? facturasDeVenta;
 var isLoaded = false;
 
 class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {

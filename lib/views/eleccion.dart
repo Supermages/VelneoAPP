@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:velneoapp/routes/constants.dart';
-import 'package:velneoapp/views/partes.dart';
 
 class EleccionView extends StatefulWidget {
   const EleccionView({Key? key}) : super(key: key);

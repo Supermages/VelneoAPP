@@ -10,9 +10,9 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:velneoapp/routes/constants.dart';
 import 'dart:convert';
 import "dart:developer";
-import 'package:velneoapp/views/ada.dart';
+import 'package:velneoapp/image/convert_images.dart';
 
-final convertImages = ConvertImages();
+const convertImages = ConvertImages();
 String patata = '';
 String algo = '';
 
@@ -81,7 +81,7 @@ class _FirmaOldPageState extends State<FirmaOldPage> {
                       ..click();
                     log("$imageBytes");
                     String patata = base64.encode(imageBytes);
-                    print(patata);
+                    log(patata);
                     // Decodear base64 a imagen
                     //log("Estoy aqui => ${metodo.convertUbFileBase64(fileName)}");
                   } else {

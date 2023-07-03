@@ -4,46 +4,54 @@
 
 // import 'dart:convert';
 
-// List<FacturasDeVenta> facturasDeVentaFromJson(String str) =>
-//     List<FacturasDeVenta>.from(json.decode(str));
+FacturasDeVenta facturasDeVentaFromJson(String str) =>
+    FacturasDeVenta.fromJson(json.decode(str));
 
 // String facturasDeVentaToJson(FacturasDeVenta data) =>
 //     json.encode(data.toJson());
 
-// class FacturasDeVenta {
-//   List<PedVta> pedVta;
+class FacturasDeVenta {
+  int count;
+  int totalCount;
+  List<VtaPedG> vtaPedGs;
 
-//   FacturasDeVenta({
-//     required this.pedVta,
-//   });
+  FacturasDeVenta({
+    required this.count,
+    required this.totalCount,
+    required this.vtaPedGs,
+  });
 
-//   factory FacturasDeVenta.fromJson(Map<String, dynamic> json) =>
-//       FacturasDeVenta(
-//         pedVta:
-//             List<PedVta>.from(json["Ped_Vta"].map((x) => PedVta.fromJson(x))),
-//       );
+  factory FacturasDeVenta.fromJson(Map<String, dynamic> json) =>
+      FacturasDeVenta(
+        count: json["count"],
+        totalCount: json["total_count"],
+        vtaPedGs: List<VtaPedG>.from(
+            json["vta_ped_g"].map((x) => VtaPedG.fromJson(x))),
+      );
 
-//   Map<String, dynamic> toJson() => {
-//         "Ped_Vta": List<dynamic>.from(pedVta.map((x) => x.toJson())),
-//       };
-// }
+  Map<String, dynamic> toJson() => {
+        "count": count,
+        "total_count": totalCount,
+        "vtaPedGs": List<dynamic>.from(vtaPedGs.map((x) => x.toJson())),
+      };
+}
 
-// class PedVta {
-//   int id;
-//   int clt;
-//   String emp;
+class VtaPedG {
+  int? id;
+  int? clt;
+  int? emp;
 
-//   PedVta({
-//     required this.id,
-//     required this.clt,
-//     required this.emp,
-//   });
+  VtaPedG({
+    required this.id,
+    required this.clt,
+    required this.emp,
+  });
 
-//   factory PedVta.fromJson(Map<String, dynamic> json) => PedVta(
-//         id: json["id"],
-//         clt: json["clt"],
-//         emp: json["emp"],
-//       );
+  factory VtaPedG.fromJson(Map<String, dynamic> json) => VtaPedG(
+        id: json["id"] as int?,
+        clt: json["clt"] as int?,
+        emp: json["emp"] as int?,
+      );
 
 //   Map<String, dynamic> toJson() => {
 //         "id": id,

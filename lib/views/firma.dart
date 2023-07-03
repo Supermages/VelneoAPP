@@ -56,11 +56,16 @@ class _FirmaViewState extends State<FirmaView> {
                         title: const Text('No se ha podido continuar'),
                         content: const Text('Por favor, firma para continuar.'),
                         actions: [
-                          TextButton(
+                          ElevatedButton.icon(
+                            icon: Icon(Icons.check),
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: const Text('Aceptar'),
+                            label: const Text('Aceptar'),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.green),
+                            ),
                           ),
                         ],
                       ),
