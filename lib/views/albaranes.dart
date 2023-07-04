@@ -1,13 +1,9 @@
-// import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:velneoapp/api/modelos/api_model_albaranes.dart';
-// import 'package:velneoapp/routes/constants.dart';
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:velneoapp/views/detalle_de_albaran.dart';
-// import 'package:velneoapp/api/modelos/api_model_partes.dart';
-// import 'package:velneoapp/views/detalle_de_albaran.dart';
 
 class AlbaranesVentaView extends StatefulWidget {
   const AlbaranesVentaView({super.key});
@@ -74,7 +70,7 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => DetalleDeAlbaranView(
-                                  index: dataFromAPI!.vtaFacG[index],
+                                  index: dataFromAPI!.vtaFacG[index] as int,
                                 )),
                       );
                     },
