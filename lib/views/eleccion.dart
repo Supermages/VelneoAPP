@@ -18,35 +18,49 @@ class _EleccionViewState extends State<EleccionView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                entradaRoute,
+                (route) => false,
+              );
+            },
+            icon: const Icon(Icons.exit_to_app),
+          )
+        ],
         title: const Text("Página de elección"),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
+            ElevatedButton.icon(
+              icon: const Icon(Icons.description),
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.orange),
+                  fixedSize: const MaterialStatePropertyAll(Size(215, 55))),
               onPressed: () {
                 Navigator.pushNamed(context, partesRoute);
               },
-              style: ElevatedButton.styleFrom(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-              ),
-              child: const Text(
+              label: const Text(
                 'Partes',
                 style: TextStyle(fontSize: 18),
               ),
             ),
             const SizedBox(height: 16),
-            ElevatedButton(
+            ElevatedButton.icon(
+              icon: const Icon(Icons.article),
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.blueGrey),
+                  fixedSize: const MaterialStatePropertyAll(Size(215, 55))),
               onPressed: () {
                 Navigator.pushNamed(context, albaranesRoute);
               },
-              style: ElevatedButton.styleFrom(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-              ),
-              child: const Text(
+              label: const Text(
                 'Albaranes de venta',
                 style: TextStyle(fontSize: 18),
               ),
