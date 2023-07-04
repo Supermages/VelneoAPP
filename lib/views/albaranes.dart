@@ -16,7 +16,7 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
   bool _isLoading = true;
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
     _getData();
   }
