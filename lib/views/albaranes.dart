@@ -1,13 +1,9 @@
-// import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:velneoapp/api/modelos/api_model_albaranes.dart';
-// import 'package:velneoapp/routes/constants.dart';
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:velneoapp/views/detalle_de_albaran.dart';
-// import 'package:velneoapp/api/modelos/api_model_partes.dart';
-// import 'package:velneoapp/views/detalle_de_albaran.dart';
 
 class AlbaranesVentaView extends StatefulWidget {
   const AlbaranesVentaView({super.key});
@@ -17,7 +13,7 @@ class AlbaranesVentaView extends StatefulWidget {
 }
 
 class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
-  bool _isLoaded = true;
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -35,7 +31,7 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
       if (res.statusCode == 200) {
         log("jiji");
         dataFromAPI = AlbaranesVenta.fromJson(json.decode(res.body));
-        _isLoaded = false;
+        _isLoading = false;
         setState(() {});
       } else {
         throw ("DON");
@@ -58,7 +54,7 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
       appBar: AppBar(
         title: const Text("Albaranes"),
       ),
-      body: _isLoaded
+      body: _isLoading
           ? const Center(
               child: CircularProgressIndicator(),
             )
@@ -70,13 +66,18 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => DetalleDeAlbaranView(
-                                  index: dataFromAPI!.vtaFacG[index],
-                                )),
-                      );
+                      try {
+                        log("${index + 2}");
+                        setNumeroIndex(index + 2);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const DetalleDeAlbaranView(),
+                          ),
+                        );
+                      } catch (e) {
+                        log(e.toString());
+                      }
                     },
                     child: Column(
                       children: [
@@ -104,6 +105,7 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
                             Text("${dataFromAPI!.vtaFacG[index].totFac}"),
                           ],
                         ),
+                        Row(children: [Text("Firmado " + "${index + 1}")])
                       ],
                     ),
                   ),

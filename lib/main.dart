@@ -25,9 +25,7 @@ class MyApp extends StatelessWidget {
           entradaRoute: (context) => const EntradaView(),
           eleccionRoute: (context) => const EleccionView(),
           firmaRoute: (context) => const FirmaView(),
-          detalleDeAlbaranesRoute: (context) => const DetalleDeAlbaranView(
-                index: 3,
-              ),
+          detalleDeAlbaranesRoute: (context) => const DetalleDeAlbaranView(),
           detalleDePartesRoute: (context) => const DetalleDePartesView(
                 id: 3,
               ),

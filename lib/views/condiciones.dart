@@ -42,7 +42,7 @@ class _TerminosPageState extends State<TerminosPage> {
             children: [
               SingleChildScrollView(
                 child: SizedBox(
-                  height: (MediaQuery.of(context).size.height) - 470,
+                  height: (MediaQuery.of(context).size.height) * 0.42,
                   child: const TabBarView(children: [
                     Text(
                         "Ejemplo1huhujhfuahsdfihsduihfsauihfuiahefuibauisfbeuebfuebubfauebiubasjbdfdfebueueuabsebgfyfyugbsukffbash"),

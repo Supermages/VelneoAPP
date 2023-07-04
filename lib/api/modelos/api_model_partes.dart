@@ -44,9 +44,9 @@ class Prt {
   });
 
   factory Prt.fromJson(Map<String, dynamic> json) => Prt(
-        id: json["id"] ?? "",
-        clt: json["clt"] ?? "",
-        emp: json["emp"] ?? "",
+        id: json["id"],
+        clt: json["clt"],
+        emp: json["emp"],
       );
 
   Map<String, dynamic> toJson() => {
