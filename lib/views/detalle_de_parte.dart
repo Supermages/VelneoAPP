@@ -60,6 +60,11 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
   }
 
   @override
+  State<DetalleDePartesView> createState() => _DetalleDePartesViewState();
+}
+
+class _DetalleDePartesViewState extends State<DetalleDePartesView> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

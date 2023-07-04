@@ -1,29 +1,35 @@
 // To parse this JSON data, do
 //
-//     final albaranesDeVentaDetalle = albaranesDeVentaDetalleFromJson(jsonString);
+//     final albaranesVenta = albaranesVentaFromJson(jsonString);
 
 import 'dart:convert';
 
-AlbaranesDeVentaDetalle albaranesDeVentaDetalleFromJson(String str) =>
-    AlbaranesDeVentaDetalle.fromJson(json.decode(str));
+AlbaranesVenta albaranesVentaFromJson(String str) =>
+    AlbaranesVenta.fromJson(json.decode(str));
 
-String albaranesDeVentaDetalleToJson(AlbaranesDeVentaDetalle data) =>
-    json.encode(data.toJson());
+String albaranesVentaToJson(AlbaranesVenta data) => json.encode(data.toJson());
 
-class AlbaranesDeVentaDetalle {
+class AlbaranesVenta {
+  int count;
+  int totalCount;
   List<VtaFacG> vtaFacG;
 
-  AlbaranesDeVentaDetalle({
+  AlbaranesVenta({
+    required this.count,
+    required this.totalCount,
     required this.vtaFacG,
   });
 
-  factory AlbaranesDeVentaDetalle.fromJson(Map<String, dynamic> json) =>
-      AlbaranesDeVentaDetalle(
+  factory AlbaranesVenta.fromJson(Map<String, dynamic> json) => AlbaranesVenta(
+        count: json["count"],
+        totalCount: json["total_count"],
         vtaFacG: List<VtaFacG>.from(
             json["vta_fac_g"].map((x) => VtaFacG.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
+        "count": count,
+        "total_count": totalCount,
         "vta_fac_g": List<dynamic>.from(vtaFacG.map((x) => x.toJson())),
       };
 }

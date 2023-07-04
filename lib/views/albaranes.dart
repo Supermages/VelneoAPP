@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-
-var api;
-Map map = {};
+import 'package:velneoapp/api/modelos/api_model_albaranes.dart';
+import 'dart:convert';
+import 'dart:developer';
+import 'package:http/http.dart' as http;
+import 'package:velneoapp/views/detalle_de_albaran.dart';
 
 class AlbaranesVentaView extends StatefulWidget {
   const AlbaranesVentaView({super.key});
@@ -10,19 +12,40 @@ class AlbaranesVentaView extends StatefulWidget {
   State<AlbaranesVentaView> createState() => _AlbaranesVentaViewState();
 }
 
-var isLoaded = false;
-
 class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
+  bool _isLoading = true;
+
   @override
   void initState() async {
     super.initState();
-    initApi();
+    _getData();
   }
 
-  Future<void> initApi() async {
-    //api = await Api.createAsync(
-    //    'https://demoapi.velneo.com/verp-api/vERP_2_dat_dat/v1/vta_ped_g?page%5Bsize%5D=20&fields=id,clt,emp&api_key=api123');
-    map = api.mapApi();
+  AlbaranesVenta? dataFromAPI;
+  _getData() async {
+    try {
+      String url =
+          "https://demoapi.velneo.com/verp-api/vERP_2_dat_dat/v1/vta_fac_g?page%5Bsize%5D=20&api_key=api123";
+      http.Response res = await http.get(Uri.parse(url));
+      log("001");
+      if (res.statusCode == 200) {
+        log("jiji");
+        dataFromAPI = AlbaranesVenta.fromJson(json.decode(res.body));
+        _isLoading = false;
+        setState(() {});
+      } else {
+        throw ("DON");
+      }
+    } catch (e) {
+      log("NO");
+      log(e.toString());
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _getData();
   }
 
   @override
@@ -31,16 +54,64 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
       appBar: AppBar(
         title: const Text("Albaranes"),
       ),
-      body: ListView.builder(
-        itemCount: 20,
-        itemBuilder: (context, index) {
-          try {
-            return Text("id: ${map["vta_ped_g"][index]["id"]}");
-          } catch (e) {
-            return Text("$e");
-          }
-        },
-      ),
+      body: _isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : ListView.builder(
+              scrollDirection: Axis.vertical,
+              itemCount: dataFromAPI!.vtaFacG.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      try {
+                        log("${index + 2}");
+                        setNumeroIndex(index + 2);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const DetalleDeAlbaranView(),
+                          ),
+                        );
+                      } catch (e) {
+                        log(e.toString());
+                      }
+                    },
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            const Text("FCH: "),
+                            Text("${dataFromAPI!.vtaFacG[index].fch}"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Text("numFac: "),
+                            Text(dataFromAPI!.vtaFacG[index].numFac),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Text("CLT: "),
+                            Text("${dataFromAPI!.vtaFacG[index].clt}"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Text("totFac: "),
+                            Text("${dataFromAPI!.vtaFacG[index].totFac}"),
+                          ],
+                        ),
+                        Row(children: [Text("Firmado " + "${index + 1}")])
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
     );
   }
 }
