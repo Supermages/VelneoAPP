@@ -105,7 +105,7 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
                             Text("${dataFromAPI!.vtaFacG[index].totFac}"),
                           ],
                         ),
-                        Row(children: [Text("Firmado " + "${index + 1}")])
+                        Row(children: [Text("Firmado " "${index + 1}")])
                       ],
                     ),
                   ),

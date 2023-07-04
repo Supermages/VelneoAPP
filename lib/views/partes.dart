@@ -70,7 +70,7 @@ class _PartesViewState extends State<PartesView> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => DetalleDePartesView()),
+                            builder: (context) => const DetalleDePartesView()),
                       );
                     },
                     child: Column(
