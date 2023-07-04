@@ -1,5 +1,7 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
+import 'package:velneoapp/dialogos/error_dialog.dart';
 import 'package:velneoapp/image/convert_images.dart';
 import 'package:velneoapp/images/convertimages.dart';
 
@@ -20,8 +22,10 @@ class _FirmaViewState extends State<FirmaView> {
     super.initState();
   }
 
+  bool _thereIsSignature = false;
   final metodo = const ConvertImages();
   final GlobalKey<SfSignaturePadState> _signaturePadStateKey = GlobalKey();
+  Offset offsetValue = const Offset(0, 0);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,8 +36,11 @@ class _FirmaViewState extends State<FirmaView> {
           width: MediaQuery.of(context).size.width * 0.9,
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text('Porfavor, firme aqui para continuar'),
+              padding: EdgeInsets.all(25.0),
+              child: Text(
+                'Por favor, firme aquí para continuar',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
             ),
             SfSignaturePad(
               key: _signaturePadStateKey,
@@ -41,23 +48,42 @@ class _FirmaViewState extends State<FirmaView> {
               strokeColor: Colors.black,
               minimumStrokeWidth: 2.5,
               maximumStrokeWidth: 3.0,
+              onDraw: (offset, time) {
+                offsetValue = offset;
+                log("$offsetValue");
+              },
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8),
               child: ElevatedButton.icon(
                   onPressed: () async {
+                    _thereIsSignature = false;
+                    offsetValue = const Offset(0, 0);
                     _signaturePadStateKey.currentState!.clear();
                   },
                   icon: const Icon(
                     Icons.delete,
                     size: 24.0,
                   ),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.red),
+                  ),
                   label: const Text('Borrar')),
             ),
             Text(patata),
             ElevatedButton.icon(
                 onPressed: () async {
-                  await convertirImagen(context, _signaturePadStateKey, metodo);
+                  log("$offsetValue");
+                  if (offsetValue == Offset.zero) {
+                    showErrorDialog(
+                      context,
+                      "Debes de poner tu firma para continuar",
+                    );
+                  } else {
+                    await convertirImagen(
+                        context, _signaturePadStateKey, metodo);
+                  }
                 },
                 icon: const Icon(
                   Icons.image,
