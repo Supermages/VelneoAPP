@@ -17,7 +17,8 @@ convertirImagen(context, _signaturePadStateKey, metodo) async {
   log("$image");
   final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
   // comprobar si esta vacio o no
-  if (byteData!.lengthInBytes == 2616) {
+  log("${byteData!.offsetInBytes}");
+  if (byteData.lengthInBytes == 2557 || byteData.lengthInBytes == 2619) {
     // ignore: use_build_context_synchronously
     showDialog(
       context: context,
