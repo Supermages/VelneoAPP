@@ -13,7 +13,7 @@ class PartesView extends StatefulWidget {
 }
 
 class _PartesViewState extends State<PartesView> {
-  bool _isLoaded = true;
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -31,7 +31,7 @@ class _PartesViewState extends State<PartesView> {
       if (res.statusCode == 200) {
         log("jiji");
         dataFromAPI = Partes.fromJson(json.decode(res.body));
-        _isLoaded = false;
+        _isLoading = false;
         setState(() {});
       } else {
         throw ("NONOAAAAAAA");
@@ -54,7 +54,7 @@ class _PartesViewState extends State<PartesView> {
       appBar: AppBar(
         title: const Text("Partes"),
       ),
-      body: _isLoaded
+      body: _isLoading
           ? const Center(
               child: CircularProgressIndicator(),
             )
@@ -66,12 +66,11 @@ class _PartesViewState extends State<PartesView> {
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
                     onTap: () {
+                      setId(index);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => DetalleDePartesView(
-                                  id: dataFromAPI!.vtaPedGs[index].id,
-                                )),
+                            builder: (context) => DetalleDePartesView()),
                       );
                     },
                     child: Column(

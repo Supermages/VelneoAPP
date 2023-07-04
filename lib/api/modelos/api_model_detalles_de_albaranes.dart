@@ -11,7 +11,7 @@ String albaranesDeVentaDetalleToJson(AlbaranesDeVentaDetalle data) =>
     json.encode(data.toJson());
 
 class AlbaranesDeVentaDetalle {
-  VtaFacG vtaFacG;
+  List<VtaFacG> vtaFacG;
 
   AlbaranesDeVentaDetalle({
     required this.vtaFacG,
@@ -19,11 +19,12 @@ class AlbaranesDeVentaDetalle {
 
   factory AlbaranesDeVentaDetalle.fromJson(Map<String, dynamic> json) =>
       AlbaranesDeVentaDetalle(
-        vtaFacG: VtaFacG.fromJson(json["vta_fac_g"]),
+        vtaFacG: List<VtaFacG>.from(
+            json["vta_fac_g"].map((x) => VtaFacG.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "vta_fac_g": vtaFacG.toJson(),
+        "vta_fac_g": List<dynamic>.from(vtaFacG.map((x) => x.toJson())),
       };
 }
 
