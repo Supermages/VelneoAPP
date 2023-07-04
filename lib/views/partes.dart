@@ -66,12 +66,11 @@ class _PartesViewState extends State<PartesView> {
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
                     onTap: () {
+                      setId(index);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => DetalleDePartesView(
-                                  id: dataFromAPI!.vtaPedGs[index].id,
-                                )),
+                            builder: (context) => DetalleDePartesView()),
                       );
                     },
                     child: Column(

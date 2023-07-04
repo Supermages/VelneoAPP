@@ -20,8 +20,8 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
   }
 
   Future<void> initApi() async {
-    api = await Api.createAsync(
-        'https://demoapi.velneo.com/verp-api/vERP_2_dat_dat/v1/vta_ped_g?page%5Bsize%5D=20&fields=id,clt,emp&api_key=api123');
+    //api = await Api.createAsync(
+    //    'https://demoapi.velneo.com/verp-api/vERP_2_dat_dat/v1/vta_ped_g?page%5Bsize%5D=20&fields=id,clt,emp&api_key=api123');
     map = api.mapApi();
   }
 
