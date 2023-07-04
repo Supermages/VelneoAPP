@@ -20,7 +20,7 @@ class _DetalleDeAlbaranViewState extends State<DetalleDeAlbaranView> {
     _getData();
   }
 
-  bool _isLoaded = true;
+  bool _isLoading = true;
 
   AlbaranesDeVentaDetalle? dataFromAPI;
   _getData() async {
@@ -32,7 +32,7 @@ class _DetalleDeAlbaranViewState extends State<DetalleDeAlbaranView> {
       if (res.statusCode == 200) {
         log("jiji");
         dataFromAPI = AlbaranesDeVentaDetalle.fromJson(json.decode(res.body));
-        _isLoaded = false;
+        _isLoading = false;
         setState(() {});
       } else {
         throw ("NONOAAAAAAA");
@@ -56,7 +56,7 @@ class _DetalleDeAlbaranViewState extends State<DetalleDeAlbaranView> {
         title: const Text("Detalle de albaranes"),
       ),
       body: Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
             Row(
