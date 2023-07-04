@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:velneoapp/views/eleccion.dart';
+import 'package:velneoapp/routes/constants.dart';
 
 class EntradaView extends StatelessWidget {
   const EntradaView({Key? key}) : super(key: key);
@@ -21,11 +21,10 @@ class EntradaView extends StatelessWidget {
             const SizedBox(height: 32),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
+                Navigator.pushNamedAndRemoveUntil(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => const EleccionView(),
-                  ),
+                  eleccionRoute,
+                  (route) => false,
                 );
               },
               style: ElevatedButton.styleFrom(
