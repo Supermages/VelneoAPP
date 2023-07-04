@@ -42,7 +42,7 @@ class _CondicionesViewState extends State<CondicionesView> {
             children: [
               SingleChildScrollView(
                 child: SizedBox(
-                  height: (MediaQuery.of(context).size.height) * 0.42,
+                  height: (MediaQuery.of(context).size.height) * 0.5,
                   child: const TabBarView(children: [
                     Text("Ejemplo1"),
                     Text("Ejemplo2"),
@@ -51,8 +51,8 @@ class _CondicionesViewState extends State<CondicionesView> {
               ),
               const Divider(color: Colors.black),
               const Text(
-                'LEE Y MARCA LAS CASILLAS PARA PODER VENDER TU RIÑÓN:',
-                style: TextStyle(fontSize: 18),
+                'LEE EL TEXTO Y MARCA LAS CASILLAS PARA PODER VENDER TU RIÑÓN:',
+                style: TextStyle(fontSize: 14),
               ),
               const SizedBox(height: 16),
               CheckboxListTile(

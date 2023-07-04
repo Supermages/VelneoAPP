@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:velneoapp/routes/constants.dart';
+import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
+import 'package:velneoapp/image/convert_images.dart';
+import 'package:velneoapp/images/convertimages.dart';
+
+const convertImages = ConvertImages();
+String patata = '';
+String algo = '';
 
 class FirmaView extends StatefulWidget {
   const FirmaView({Key? key}) : super(key: key);
@@ -9,74 +15,56 @@ class FirmaView extends StatefulWidget {
 }
 
 class _FirmaViewState extends State<FirmaView> {
-  bool isFirmado = false;
+  @override
+  void initState() {
+    super.initState();
+  }
 
+  final metodo = const ConvertImages();
+  final GlobalKey<SfSignaturePadState> _signaturePadStateKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Página de Firma'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Por favor, firma para continuar:',
-              style: TextStyle(fontSize: 18),
+      appBar: AppBar(title: const Text("Firma")),
+      body: Center(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width * 0.9,
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Text('Porfavor, firme aqui para continuar'),
             ),
-            const SizedBox(height: 16),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    isFirmado = !isFirmado;
-                  });
+            SfSignaturePad(
+              key: _signaturePadStateKey,
+              backgroundColor: Colors.grey,
+              strokeColor: Colors.black,
+              minimumStrokeWidth: 2.5,
+              maximumStrokeWidth: 3.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: ElevatedButton.icon(
+                  onPressed: () async {
+                    _signaturePadStateKey.currentState!.clear();
+                  },
+                  icon: const Icon(
+                    Icons.delete,
+                    size: 24.0,
+                  ),
+                  label: const Text('Borrar')),
+            ),
+            Text(patata),
+            ElevatedButton.icon(
+                onPressed: () async {
+                  await convertirImagen(context, _signaturePadStateKey, metodo);
                 },
-                child: Text(
-                  isFirmado ? 'Firmado' : 'Firmar',
-                  style: const TextStyle(fontSize: 18),
+                icon: const Icon(
+                  Icons.image,
+                  size: 24.0,
                 ),
-              ),
-            ),
-            const SizedBox(height: 24),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  if (isFirmado) {
-                    // Navegar a la página de elección
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, eleccionRoute, (route) => false);
-                  } else {
-                    // Mostrar mensaje de error
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text('No se ha podido continuar'),
-                        content: const Text('Por favor, firma para continuar.'),
-                        actions: [
-                          ElevatedButton.icon(
-                            icon: const Icon(Icons.check),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            label: const Text('Aceptar'),
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.green),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }
-                  const TextStyle(fontSize: 18);
-                },
-                child: const Text('Continuar'),
-              ),
-            ),
-          ],
+                label: const Text('Firmar y guardar')),
+          ]),
         ),
       ),
     );
