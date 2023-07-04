@@ -27,9 +27,10 @@ class MyApp extends StatelessWidget {
           firmaRoute: (context) => const FirmaView(),
           detalleDeAlbaranesRoute: (context) => const DetalleDeAlbaranView(),
           detalleDePartesRoute: (context) => const DetalleDePartesView(),
+          condicionesRoute: (context) => const CondicionesView(),
         },
         theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue)),
-        home: const TerminosPage());
+        home: const EntradaView());
   }
 }

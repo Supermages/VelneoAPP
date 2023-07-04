@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:velneoapp/api/modelos/api_model_det_partes.dart';
+import 'package:velneoapp/routes/constants.dart';
 
 int idDet = 1;
 
@@ -61,57 +62,68 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Detalle de partes"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, condicionesRoute);
+            },
+            icon: const Icon(Icons.edit),
+          )
+        ],
       ),
       body: (_isLoaded)
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : Column(
-              children: [
-                Row(
-                  children: [
-                    const Text("ID: "),
-                    Text("${dataFromAPI!.vtaPedG[0].id}"),
-                  ],
-                ),
-                Row(
-                  //vtaPedGs.id
-                  children: [
-                    const Text("CLT: "),
-                    Text("${dataFromAPI!.vtaPedG[0].clt}"),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Text("EMP: "),
-                    Text(dataFromAPI!.vtaPedG[0].emp),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Text("EMP div: "),
-                    Text(dataFromAPI!.vtaPedG[0].empDiv),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Text("FCH: "),
-                    Text("${dataFromAPI!.vtaPedG[0].fch}"),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Text("FCH ent: "),
-                    Text("${dataFromAPI!.vtaPedG[0].fchEnt}"),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Text("Num ped: "),
-                    Text(dataFromAPI!.vtaPedG[0].numPed),
-                  ],
-                ),
-              ],
+          : Padding(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      const Text("ID: "),
+                      Text("${dataFromAPI!.vtaPedG[0].id}"),
+                    ],
+                  ),
+                  Row(
+                    //vtaPedGs.id
+                    children: [
+                      const Text("CLT: "),
+                      Text("${dataFromAPI!.vtaPedG[0].clt}"),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text("EMP: "),
+                      Text(dataFromAPI!.vtaPedG[0].emp),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text("EMP div: "),
+                      Text(dataFromAPI!.vtaPedG[0].empDiv),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text("FCH: "),
+                      Text("${dataFromAPI!.vtaPedG[0].fch}"),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text("FCH ent: "),
+                      Text("${dataFromAPI!.vtaPedG[0].fchEnt}"),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text("Num ped: "),
+                      Text(dataFromAPI!.vtaPedG[0].numPed),
+                    ],
+                  ),
+                ],
+              ),
             ),
     );
   }

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:velneoapp/api/modelos/api_model_detalles_de_albaranes.dart';
+import 'package:velneoapp/routes/constants.dart';
 
 int index = 0;
 
@@ -63,9 +64,17 @@ class _DetalleDeAlbaranViewState extends State<DetalleDeAlbaranView> {
         : Scaffold(
             appBar: AppBar(
               title: const Text("Detalle de albaranes"),
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, condicionesRoute);
+                  },
+                  icon: const Icon(Icons.edit),
+                )
+              ],
             ),
             body: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
                   Row(
@@ -86,10 +95,12 @@ class _DetalleDeAlbaranViewState extends State<DetalleDeAlbaranView> {
                       Text(dataFromAPI!.vtaFacG[0].numFac),
                     ],
                   ),
-                  Row(children: [
-                    Text("TOTFAC: "),
-                    Text("${dataFromAPI!.vtaFacG[0].totFac}"),
-                  ])
+                  Row(
+                    children: [
+                      const Text("TOTFAC: "),
+                      Text("${dataFromAPI!.vtaFacG[0].totFac}"),
+                    ],
+                  ),
                 ],
               ),
             ),

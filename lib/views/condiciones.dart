@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:velneoapp/routes/constants.dart';
 
-class TerminosPage extends StatefulWidget {
-  const TerminosPage({Key? key}) : super(key: key);
+class CondicionesView extends StatefulWidget {
+  const CondicionesView({Key? key}) : super(key: key);
 
   @override
-  State<TerminosPage> createState() => _TerminosPageState();
+  State<CondicionesView> createState() => _CondicionesViewState();
 }
 
-class _TerminosPageState extends State<TerminosPage> {
+class _CondicionesViewState extends State<CondicionesView> {
   bool isChecked1 = false;
   bool isChecked2 = false;
 
@@ -42,8 +42,7 @@ class _TerminosPageState extends State<TerminosPage> {
             children: [
               SingleChildScrollView(
                 child: SizedBox(
-                  height: (MediaQuery.of(context).size.height) - 500,
-                  width: (MediaQuery.of(context).size.width) * 0.46,
+                  height: (MediaQuery.of(context).size.height) * 0.42,
                   child: const TabBarView(children: [
                     Text("Ejemplo1"),
                     Text("Ejemplo2"),

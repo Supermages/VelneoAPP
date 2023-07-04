@@ -8,6 +8,8 @@ const entradaRoute = "/entrada/";
 
 const firmaRoute = "/firma/";
 
+const condicionesRoute = "/condiciones/";
+
 const detalleDePartesRoute = "/detalledepartes/";
 
 const detalleDeAlbaranesRoute = "/detalledealbaranes/";
