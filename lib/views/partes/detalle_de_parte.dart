@@ -169,7 +169,6 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
                       label: const Text("Post (No funcional)"),
                     ),
                   ),
-                  //eliminar
                 ],
               ),
             ),
