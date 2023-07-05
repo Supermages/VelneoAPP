@@ -31,7 +31,7 @@ class _EleccionViewState extends State<EleccionView> {
                       .pushNamedAndRemoveUntil(entradaRoute, (route) => false);
                 }
               },
-              icon: const Icon(Icons.exit_to_app),
+              icon: const Icon(Icons.arrow_back_ios_new),
             ),
           ),
           Tooltip(
@@ -51,8 +51,9 @@ class _EleccionViewState extends State<EleccionView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton.icon(
-              icon: const Icon(Icons.description),
+              icon: const Icon(Icons.description_outlined),
               style: ButtonStyle(
+                  shadowColor: MaterialStateProperty.all<Color>(Colors.yellow),
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.orange),
                   fixedSize: const MaterialStatePropertyAll(Size(240, 55))),
@@ -66,8 +67,9 @@ class _EleccionViewState extends State<EleccionView> {
             ),
             const SizedBox(height: 16),
             ElevatedButton.icon(
-              icon: const Icon(Icons.article),
+              icon: const Icon(Icons.text_snippet_outlined),
               style: ButtonStyle(
+                  shadowColor: MaterialStateProperty.all<Color>(Colors.green),
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.blueGrey),
                   fixedSize: const MaterialStatePropertyAll(Size(240, 55))),
