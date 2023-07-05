@@ -20,7 +20,7 @@ Future<T?> showGenericDialogOneOption<T>({
           return ElevatedButton.icon(
             icon: const Icon(Icons.check),
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.teal),
             ),
             onPressed: () {
               Navigator.of(context).pop(value);

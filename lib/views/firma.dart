@@ -38,7 +38,7 @@ class _FirmaViewState extends State<FirmaView> {
             const Padding(
               padding: EdgeInsets.all(25.0),
               child: Text(
-                'Por favor, firme aquí para continuar',
+                'Por favor, introduzca su firma aquí:',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),

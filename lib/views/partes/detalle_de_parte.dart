@@ -70,7 +70,7 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
               onPressed: () {
                 Navigator.pushNamed(context, condicionesRoute);
               },
-              icon: const Icon(Icons.edit),
+              icon: const Icon(Icons.history_edu),
             ),
           )
         ],
@@ -150,7 +150,7 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
                             }
                           }
                         },
-                        label: const Text("Delete"),
+                        label: const Text("Borrar"),
                       )),
                   Padding(
                     padding: const EdgeInsets.all(10.0),

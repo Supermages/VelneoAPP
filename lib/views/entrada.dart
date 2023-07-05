@@ -32,42 +32,48 @@ class EntradaView extends StatelessWidget {
         children: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(top: 80.0),
+              padding: const EdgeInsets.only(top: 125.0),
               child: Container(
                 alignment: Alignment.topCenter,
-                child: Image.asset('assets/images/rubicon.png',
-                    width: MediaQuery.of(context).size.width * 0.8),
+                child: Image.asset('assets/images/Rubicon.png',
+                    width: MediaQuery.of(context).size.width * 0.80),
               ),
             ),
           ),
           Expanded(
+            child: Align(
+              alignment: Alignment.topCenter,
               child: Column(
-            children: [
-              const Text(
-                'Bienvenido/a',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                children: [
+                  const SizedBox(height: 5),
+                  const Text(
+                    'Bienvenido/a',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 28),
+                  ElevatedButton.icon(
+                    icon: const Icon(Icons.login, color: Colors.white),
+                    onPressed: () {
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        eleccionRoute,
+                        (route) => false,
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.deepPurple,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 32, vertical: 16),
+                    ),
+                    label: const Text(
+                      'Entrar',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 32),
-              ElevatedButton.icon(
-                icon: const Icon(Icons.login),
-                onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    eleccionRoute,
-                    (route) => false,
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                ),
-                label: const Text(
-                  'Entrar',
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-            ],
-          )),
+            ),
+          ),
         ],
       ),
     );

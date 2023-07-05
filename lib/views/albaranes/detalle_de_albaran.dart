@@ -71,7 +71,7 @@ class _DetalleDeAlbaranViewState extends State<DetalleDeAlbaranView> {
                     onPressed: () {
                       Navigator.pushNamed(context, condicionesRoute);
                     },
-                    icon: const Icon(Icons.edit),
+                    icon: const Icon(Icons.history_edu),
                   ),
                 )
               ],
