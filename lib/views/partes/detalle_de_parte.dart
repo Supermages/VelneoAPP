@@ -157,7 +157,7 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
                       )),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: const ElevatedButton.icon(
+                    child: ElevatedButton.icon(
                       icon: const Icon(Icons.send),
                       style: ButtonStyle(
                         backgroundColor:
@@ -169,10 +169,10 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
                         Post post = const Post();
                         post.postData(idDet: idDet, emp: "002", empdiv: "002");
                       },
-                      label: const const Text("Post (No funcional)"),
+                      label: const Text("Post (No funcional)"),
                     ),
                   ),
-                BottonImage(id: idDet),
+                  BottonImage(id: idDet),
                 ],
               ),
             ),

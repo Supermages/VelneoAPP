@@ -20,7 +20,7 @@ Future<T?> showGenericDialogTwoOptions<T>({
           return TextButton(
             style: const ButtonStyle(
               fixedSize: MaterialStatePropertyAll(
-                Size.fromWidth(150),
+                Size.fromWidth(140),
               ),
               textStyle: MaterialStatePropertyAll(
                 TextStyle(fontSize: 22),
