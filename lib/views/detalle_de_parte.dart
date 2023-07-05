@@ -3,11 +3,13 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:velneoapp/api/modelos/api_model_det_partes.dart';
+import 'package:velneoapp/api/modelos/post_detalle_de_parte.dart';
+import 'package:velneoapp/routes/constants.dart';
 
 int idDet = 1;
 
 void setId(int id) {
-  idDet = id + 1;
+  idDet = id;
 }
 
 class DetalleDePartesView extends StatefulWidget {
@@ -34,19 +36,18 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
       String url =
           "https://demoapi.velneo.com/verp-api/vERP_2_dat_dat/v1/vta_ped_g/$idDet?fields=id,clt,emp,emp_div,fch,fch_ent,num_ped&api_key=api123";
       http.Response res = await http.get(Uri.parse(url));
-      log("001");
       if (res.statusCode == 200) {
-        log("jiji");
         dataFromAPI = DetPartes.fromJson(json.decode(res.body));
         _isLoaded = false;
-        log("Lista: ${dataFromAPI!.vtaPedG}");
+        log("(jiji) Lista: ${dataFromAPI!.vtaPedG}");
+        //_postData(3, "Si estas", "leyendo esto", null, null,
+        //    "WTF amico te advierot que dejes de leer", 13);
         setState(() {});
       } else {
         throw ("NONOAAAAAAA");
       }
     } catch (e) {
-      log("NONO");
-      log(e.toString());
+      log("NONO${e.toString()}");
     }
   }
 
@@ -110,6 +111,32 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
                     const Text("Num ped: "),
                     Text(dataFromAPI!.vtaPedG[0].numPed),
                   ],
+                ),
+                TextButton(
+                  onPressed: () {
+                    log("id: $idDet");
+                    //Post._postData(idDet: idDet, emp: "002", emp_div: "002");
+                    Post post = const Post();
+                    post.postData(idDet: idDet, emp: "002", emp_div: "002");
+                  },
+                  child: Text("Por favor funciona"),
+                ),
+                //eliminar
+                TextButton(
+                  onPressed: () async {
+                    log("id: $idDet");
+                    //Post._postData(idDet: idDet, emp: "002", emp_div: "002");
+                    var response = await http.delete(Uri.parse(
+                        "https://demoapi.velneo.com/verp-api/vERP_2_dat_dat/v1/vta_ped_g/$idDet?api_key=api123"));
+                    if (response.statusCode == 200) {
+                      print('Dato eliminado');
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          eleccionRoute, (route) => false);
+                    } else {
+                      print('Error al eliminar el dato');
+                    }
+                  },
+                  child: Text("Delete"),
                 ),
               ],
             ),
