@@ -17,7 +17,7 @@ class _CondicionesViewState extends State<CondicionesView> {
         indicatorColor: Colors.red,
         tabs: [
           Tab(text: "LOPD"),
-          Tab(text: "Condiciones"),
+          Tab(text: "Términos y condiciones"),
         ],
       );
 
@@ -30,10 +30,7 @@ class _CondicionesViewState extends State<CondicionesView> {
           title: const Text('Condiciones'),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(50),
-            child: Material(
-              color: Colors.blue,
-              child: _tabBar,
-            ),
+            child: _tabBar,
           ),
         ),
         body: Padding(
@@ -61,12 +58,12 @@ class _CondicionesViewState extends State<CondicionesView> {
               ),
               const Divider(color: Colors.black),
               const Text(
-                'Lee y marca las casillas para vender tu riñon al mercado negro:',
+                'Lee las condiciones y marca las casillas para poder continuar:',
                 style: TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 16),
               CheckboxListTile(
-                title: const Text('LOPD'),
+                title: const Text('Acepto el LOPD'),
                 value: isChecked1,
                 onChanged: (value) {
                   setState(() {
@@ -75,7 +72,7 @@ class _CondicionesViewState extends State<CondicionesView> {
                 },
               ),
               CheckboxListTile(
-                title: const Text('Condiciones'),
+                title: const Text('Acepto los términos y condiciones'),
                 value: isChecked2,
                 onChanged: (value) {
                   setState(() {
@@ -84,25 +81,29 @@ class _CondicionesViewState extends State<CondicionesView> {
                 },
               ),
               const SizedBox(height: 24),
-              ElevatedButton.icon(
-                icon: const Icon(Icons.check),
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.green),
+              Center(
+                child: ElevatedButton.icon(
+                  icon: const Icon(Icons.check),
+                  style: ButtonStyle(
+                    shadowColor: MaterialStateProperty.all<Color>(
+                        Colors.lightGreenAccent),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.teal),
+                  ),
+                  onPressed: () {
+                    if (isChecked1 && isChecked2) {
+                      // Navegar a la siguiente página
+                      Navigator.pushNamed(context, firmaRoute);
+                    } else {
+                      // Mostrar mensaje de error
+                      showErrorDialog(
+                        context,
+                        "Debes de aceptar las dos condiciones para poder progresar.",
+                      );
+                    }
+                  },
+                  label: const Text('Aceptar'),
                 ),
-                onPressed: () {
-                  if (isChecked1 && isChecked2) {
-                    // Navegar a la siguiente página
-                    Navigator.pushNamed(context, firmaRoute);
-                  } else {
-                    // Mostrar mensaje de error
-                    showErrorDialog(
-                      context,
-                      "Debes de aceptar las dos condiciones para poder progresar",
-                    );
-                  }
-                },
-                label: const Text('Aceptar'),
               ),
             ],
           ),

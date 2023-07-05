@@ -7,6 +7,7 @@ import 'package:velneoapp/api/modelos/api_img.dart';
 import 'package:velneoapp/api/modelos/api_model_det_partes.dart';
 import 'package:velneoapp/api/modelos/post_detalle_de_parte.dart';
 import 'package:velneoapp/elementos_creados/botonImagen.dart';
+import 'package:velneoapp/dialogos/delete_file.dart';
 import 'package:velneoapp/routes/constants.dart';
 
 int idDet = 1;
@@ -65,83 +66,115 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Detalle de partes"),
+        actions: [
+          Tooltip(
+            message: "Firmar",
+            child: IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, condicionesRoute);
+              },
+              icon: const Icon(Icons.history_edu),
+            ),
+          )
+        ],
       ),
       body: (_isLoading)
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : Column(
-              children: [
-                Row(
-                  children: [
-                    const Text("ID: "),
-                    Text("${dataFromAPI!.vtaPedG[0].id}"),
-                  ],
-                ),
-                Row(
-                  //vtaPedGs.id
-                  children: [
-                    const Text("CLT: "),
-                    Text("${dataFromAPI!.vtaPedG[0].clt}"),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Text("EMP: "),
-                    Text(dataFromAPI!.vtaPedG[0].emp),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Text("EMP div: "),
-                    Text(dataFromAPI!.vtaPedG[0].empDiv),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Text("FCH: "),
-                    Text("${dataFromAPI!.vtaPedG[0].fch}"),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Text("FCH ent: "),
-                    Text("${dataFromAPI!.vtaPedG[0].fchEnt}"),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Text("Num ped: "),
-                    Text(dataFromAPI!.vtaPedG[0].numPed),
-                  ],
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    log("id: $idDet");
-                    var response = await http.delete(Uri.parse(
-                        "https://demoapi.velneo.com/verp-api/vERP_2_dat_dat/v1/vta_ped_g/$idDet?api_key=api123"));
-                    if (response.statusCode == 200) {
-                      print('Dato eliminado');
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          eleccionRoute, (route) => false);
-                    } else {
-                      print('Error al eliminar el dato');
-                    }
-                  },
-                  child: const Text("Delete"),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    log("id: $idDet");
-                    //Post._postData(idDet: idDet, emp: "002", emp_div: "002");
-                    Post post = const Post();
-                    post.postData(idDet: idDet, emp: "002", emp_div: "002");
-                  },
-                  child: const Text("Post (No funcional)"),
-                ),
+          : Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      const Text("ID: "),
+                      Text("${dataFromAPI!.vtaPedG[0].id}"),
+                    ],
+                  ),
+                  Row(
+                    //vtaPedGs.id
+                    children: [
+                      const Text("CLT: "),
+                      Text("${dataFromAPI!.vtaPedG[0].clt}"),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text("EMP: "),
+                      Text(dataFromAPI!.vtaPedG[0].emp),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text("EMP div: "),
+                      Text(dataFromAPI!.vtaPedG[0].empDiv),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text("FCH: "),
+                      Text("${dataFromAPI!.vtaPedG[0].fch}"),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text("FCH ent: "),
+                      Text("${dataFromAPI!.vtaPedG[0].fchEnt}"),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text("Num ped: "),
+                      Text(dataFromAPI!.vtaPedG[0].numPed),
+                    ],
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.only(top: 30),
+                      child: ElevatedButton.icon(
+                        icon: const Icon(Icons.delete),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.red),
+                        ),
+                        onPressed: () async {
+                          final shouldExitToScreen =
+                              await showDeleteFileDialog(context);
+                          if (shouldExitToScreen) {
+                            log("id: $idDet");
+                            var response = await http.delete(Uri.parse(
+                                "https://demoapi.velneo.com/verp-api/vERP_2_dat_dat/v1/vta_ped_g/$idDet?api_key=api123"));
+                            if (response.statusCode == 200) {
+                              log('Dato eliminado');
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                  eleccionRoute, (route) => false);
+                            } else {
+                              log('Error al eliminar el dato');
+                            }
+                          }
+                        },
+                        label: const Text("Borrar"),
+                      )),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: const ElevatedButton.icon(
+                      icon: const Icon(Icons.send),
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.green),
+                      ),
+                      onPressed: () {
+                        log("id: $idDet");
+                        //Post._postData(idDet: idDet, emp: "002", emp_div: "002");
+                        Post post = const Post();
+                        post.postData(idDet: idDet, emp: "002", empdiv: "002");
+                      },
+                      label: const const Text("Post (No funcional)"),
+                    ),
+                  ),
                 BottonImage(id: idDet),
-                //eliminar
-              ],
+                ],
+              ),
             ),
     );
   }

@@ -24,7 +24,7 @@ class ConfigViewState extends State<ConfigView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Modo oscuro")),
+      appBar: AppBar(title: const Text("Ajustes")),
       body: SizedBox.expand(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -32,7 +32,7 @@ class ConfigViewState extends State<ConfigView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              'Cambia de Dark Mode a Light Mode',
+              'Cambia a modo oscuro o modo claro',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             Padding(
@@ -54,11 +54,15 @@ class ConfigViewState extends State<ConfigView> {
               'Salir de la aplicación',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.6,
+              height: MediaQuery.of(context).size.height * 0.05,
               child: ElevatedButton.icon(
                   icon: const Icon(Icons.exit_to_app),
                   style: ButtonStyle(
+                    shadowColor:
+                        MaterialStateProperty.all<Color>(Colors.pinkAccent),
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.red),
                   ),
@@ -70,7 +74,7 @@ class ConfigViewState extends State<ConfigView> {
                           0); //TODO Peligroso, por si las dudas, que al parecer a Apple no le gusta.
                     }
                   },
-                  label: const Text("Salir")),
+                  label: const Text("Salir", style: TextStyle(fontSize: 18))),
             ),
           ],
         ),

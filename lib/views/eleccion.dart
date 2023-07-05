@@ -20,23 +20,28 @@ class _EleccionViewState extends State<EleccionView> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(
-            onPressed: () async {
-              final shouldExitToScreen =
-                  await showExitEntradaScreenDialog(context);
-              if (shouldExitToScreen) {
-                Navigator.of(context)
-                    .pushNamedAndRemoveUntil(entradaRoute, (route) => false);
-                //TODO Peligroso, por si las dudas, que al parecer a Apple no le gusta.
-              }
-            },
-            icon: const Icon(Icons.exit_to_app),
+          Tooltip(
+            message: "Volver a entrada",
+            child: IconButton(
+              onPressed: () async {
+                final shouldExitToScreen =
+                    await showExitEntradaScreenDialog(context);
+                if (shouldExitToScreen) {
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil(entradaRoute, (route) => false);
+                }
+              },
+              icon: const Icon(Icons.arrow_back_ios_new),
+            ),
           ),
-          IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, dayNightRoute);
-            },
-            icon: const Icon(Icons.settings),
+          Tooltip(
+            message: "Ajustes",
+            child: IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, configRoute);
+              },
+              icon: const Icon(Icons.settings),
+            ),
           ),
         ],
         title: const Text("Página de elección"),
@@ -46,11 +51,12 @@ class _EleccionViewState extends State<EleccionView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton.icon(
-              icon: const Icon(Icons.description),
+              icon: const Icon(Icons.description_outlined),
               style: ButtonStyle(
+                  shadowColor: MaterialStateProperty.all<Color>(Colors.yellow),
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.orange),
-                  fixedSize: const MaterialStatePropertyAll(Size(215, 55))),
+                  fixedSize: const MaterialStatePropertyAll(Size(240, 55))),
               onPressed: () {
                 Navigator.pushNamed(context, partesRoute);
               },
@@ -61,11 +67,12 @@ class _EleccionViewState extends State<EleccionView> {
             ),
             const SizedBox(height: 16),
             ElevatedButton.icon(
-              icon: const Icon(Icons.article),
+              icon: const Icon(Icons.text_snippet_outlined),
               style: ButtonStyle(
+                  shadowColor: MaterialStateProperty.all<Color>(Colors.green),
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.blueGrey),
-                  fixedSize: const MaterialStatePropertyAll(Size(215, 55))),
+                  fixedSize: const MaterialStatePropertyAll(Size(240, 55))),
               onPressed: () {
                 Navigator.pushNamed(context, albaranesRoute);
               },

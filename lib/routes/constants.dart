@@ -14,4 +14,4 @@ const detalleDePartesRoute = "/detalledepartes/";
 
 const detalleDeAlbaranesRoute = "/detalledealbaranes/";
 
-const dayNightRoute = "/daynight/";
+const configRoute = "/daynight/";

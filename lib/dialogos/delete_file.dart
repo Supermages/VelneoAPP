@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:velneoapp/dialogos/two_option_dialog.dart';
 
-Future<bool> showExitDialog(BuildContext context) {
+Future<bool> showDeleteFileDialog(BuildContext context) {
   return showGenericDialogTwoOptions<bool>(
     context: context,
-    title: 'Salir',
-    content: '¿Esta seguro que quiere salir de la aplicación?',
+    title: 'Eliminar',
+    content: '¿Esta seguro de que quiere eliminar este parte?',
     optionsBuilder: () => {
       'No': false,
       'Sí': true,

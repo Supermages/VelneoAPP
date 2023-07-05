@@ -18,6 +18,14 @@ Future<T?> showGenericDialogTwoOptions<T>({
         actions: options.keys.map((optionTitle) {
           final value = options[optionTitle];
           return TextButton(
+            style: const ButtonStyle(
+              fixedSize: MaterialStatePropertyAll(
+                Size.fromWidth(150),
+              ),
+              textStyle: MaterialStatePropertyAll(
+                TextStyle(fontSize: 22),
+              ),
+            ),
             onPressed: () {
               if (value != null) {
                 Navigator.of(context).pop(value);
