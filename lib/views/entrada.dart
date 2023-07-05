@@ -1,5 +1,8 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:velneoapp/views/eleccion.dart';
+import 'package:flutter/services.dart';
+import 'package:velneoapp/dialogos/exit_dialog.dart';
+import 'package:velneoapp/routes/constants.dart';
 
 class EntradaView extends StatelessWidget {
   const EntradaView({Key? key}) : super(key: key);
@@ -9,6 +12,18 @@ class EntradaView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Página de Entrada'),
+        actions: [
+          IconButton(
+              onPressed: () async {
+                final shouldExit = await showExitDialog(context);
+                if (shouldExit) {
+                  SystemNavigator.pop();
+                  exit(
+                      0); //TODO Peligroso, por si las dudas, que al parecer a Apple no le gusta.
+                }
+              },
+              icon: const Icon(Icons.exit_to_app))
+        ],
       ),
       body: Center(
         child: Column(
@@ -19,20 +34,20 @@ class EntradaView extends StatelessWidget {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 32),
-            ElevatedButton(
+            ElevatedButton.icon(
+              icon: const Icon(Icons.login),
               onPressed: () {
-                Navigator.push(
+                Navigator.pushNamedAndRemoveUntil(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => const EleccionView(),
-                  ),
+                  eleccionRoute,
+                  (route) => false,
                 );
               },
               style: ElevatedButton.styleFrom(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
               ),
-              child: const Text(
+              label: const Text(
                 'Entrar',
                 style: TextStyle(fontSize: 18),
               ),

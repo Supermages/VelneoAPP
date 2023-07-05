@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:velneoapp/api/modelos/api_model_partes.dart';
-import 'package:velneoapp/views/detalle_de_parte.dart';
+import 'package:velneoapp/views/partes/detalle_de_parte.dart';
 
 class PartesView extends StatefulWidget {
   const PartesView({super.key});
@@ -70,7 +70,7 @@ class _PartesViewState extends State<PartesView> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => DetalleDePartesView()),
+                            builder: (context) => const DetalleDePartesView()),
                       );
                     },
                     child: Column(

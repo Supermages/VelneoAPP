@@ -3,7 +3,7 @@ import 'package:velneoapp/api/modelos/api_model_albaranes.dart';
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
-import 'package:velneoapp/views/detalle_de_albaran.dart';
+import 'package:velneoapp/views/albaranes/detalle_de_albaran.dart';
 
 class AlbaranesVentaView extends StatefulWidget {
   const AlbaranesVentaView({super.key});
@@ -105,7 +105,7 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
                             Text("${dataFromAPI!.vtaFacG[index].totFac}"),
                           ],
                         ),
-                        Row(children: [Text("Firmado " + "${index + 1}")])
+                        Row(children: [Text("Firmado " "${index + 1}")])
                       ],
                     ),
                   ),

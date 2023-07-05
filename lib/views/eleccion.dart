@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:velneoapp/dialogos/exit_entrada_screen.dart';
 import 'package:velneoapp/routes/constants.dart';
 
 class EleccionView extends StatefulWidget {
@@ -18,35 +19,57 @@ class _EleccionViewState extends State<EleccionView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () async {
+              final shouldExitToScreen =
+                  await showExitEntradaScreenDialog(context);
+              if (shouldExitToScreen) {
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil(entradaRoute, (route) => false);
+                //TODO Peligroso, por si las dudas, que al parecer a Apple no le gusta.
+              }
+            },
+            icon: const Icon(Icons.exit_to_app),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, dayNightRoute);
+            },
+            icon: const Icon(Icons.settings),
+          ),
+        ],
         title: const Text("Página de elección"),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
+            ElevatedButton.icon(
+              icon: const Icon(Icons.description),
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.orange),
+                  fixedSize: const MaterialStatePropertyAll(Size(215, 55))),
               onPressed: () {
                 Navigator.pushNamed(context, partesRoute);
               },
-              style: ElevatedButton.styleFrom(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-              ),
-              child: const Text(
+              label: const Text(
                 'Partes',
                 style: TextStyle(fontSize: 18),
               ),
             ),
             const SizedBox(height: 16),
-            ElevatedButton(
+            ElevatedButton.icon(
+              icon: const Icon(Icons.article),
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.blueGrey),
+                  fixedSize: const MaterialStatePropertyAll(Size(215, 55))),
               onPressed: () {
                 Navigator.pushNamed(context, albaranesRoute);
               },
-              style: ElevatedButton.styleFrom(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-              ),
-              child: const Text(
+              label: const Text(
                 'Albaranes de venta',
                 style: TextStyle(fontSize: 18),
               ),
