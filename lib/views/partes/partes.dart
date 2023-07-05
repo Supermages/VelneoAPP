@@ -60,13 +60,13 @@ class _PartesViewState extends State<PartesView> {
             )
           : ListView.builder(
               scrollDirection: Axis.vertical,
-              itemCount: 10,
+              itemCount: dataFromAPI!.vtaPedGs.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
                     onTap: () {
-                      setId(index);
+                      setId(dataFromAPI!.vtaPedGs[index].id);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
