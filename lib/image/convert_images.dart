@@ -20,7 +20,7 @@ class ConvertImages {
       return archivo;
     } catch (e) {
       log("Error ${e.toString()}");
-      return File('assets/images/image_placeholder.png');
+      return File('assets/icon/icon.png');
     }
   }
 
@@ -34,7 +34,7 @@ class ConvertImages {
       return ub;
     } catch (e) {
       log("Error ${e.toString()}");
-      return "assets/images/image_placeholder.png";
+      return "assets/icon/icon.png";
     }
   }
 

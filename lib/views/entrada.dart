@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:velneoapp/dialogos/exit_dialog.dart';
 import 'package:velneoapp/routes/constants.dart';
 
+//File file = File("assets/images/image_placeholder.png");
+
 class EntradaView extends StatelessWidget {
   const EntradaView({Key? key}) : super(key: key);
 

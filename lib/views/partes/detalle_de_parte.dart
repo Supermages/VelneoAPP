@@ -1,9 +1,12 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:velneoapp/api/modelos/api_img.dart';
 import 'package:velneoapp/api/modelos/api_model_det_partes.dart';
 import 'package:velneoapp/api/modelos/post_detalle_de_parte.dart';
+import 'package:velneoapp/elementos_creados/botonImagen.dart';
 import 'package:velneoapp/routes/constants.dart';
 
 int idDet = 1;
@@ -22,8 +25,7 @@ class DetalleDePartesView extends StatefulWidget {
 }
 
 class _DetalleDePartesViewState extends State<DetalleDePartesView> {
-  bool _isLoaded = true;
-
+  bool _isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -38,7 +40,7 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
       http.Response res = await http.get(Uri.parse(url));
       if (res.statusCode == 200) {
         dataFromAPI = DetPartes.fromJson(json.decode(res.body));
-        _isLoaded = false;
+        _isLoading = false;
         log("(jiji) Lista: ${dataFromAPI!.vtaPedG}");
         //_postData(3, "Si estas", "leyendo esto", null, null,
         //    "WTF amico te advierot que dejes de leer", 13);
@@ -59,11 +61,12 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
 
   @override
   Widget build(BuildContext context) {
+    IdImg().setIdImg(idDet);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Detalle de partes"),
       ),
-      body: (_isLoaded)
+      body: (_isLoading)
           ? const Center(
               child: CircularProgressIndicator(),
             )
@@ -125,7 +128,7 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
                       print('Error al eliminar el dato');
                     }
                   },
-                  child: Text("Delete"),
+                  child: const Text("Delete"),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -134,8 +137,9 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
                     Post post = const Post();
                     post.postData(idDet: idDet, emp: "002", emp_div: "002");
                   },
-                  child: Text("Post (No funcional)"),
+                  child: const Text("Post (No funcional)"),
                 ),
+                BottonImage(id: idDet),
                 //eliminar
               ],
             ),
