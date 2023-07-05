@@ -54,8 +54,10 @@ class ConfigViewState extends State<ConfigView> {
               'Salir de la aplicación',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.6,
+              height: MediaQuery.of(context).size.height * 0.05,
               child: ElevatedButton.icon(
                   icon: const Icon(Icons.exit_to_app),
                   style: ButtonStyle(

@@ -30,10 +30,7 @@ class _CondicionesViewState extends State<CondicionesView> {
           title: const Text('Condiciones'),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(50),
-            child: Material(
-              color: Colors.blue,
-              child: _tabBar,
-            ),
+            child: _tabBar,
           ),
         ),
         body: Padding(
@@ -61,12 +58,12 @@ class _CondicionesViewState extends State<CondicionesView> {
               ),
               const Divider(color: Colors.black),
               const Text(
-                'Lee y marca las casillas para vender tu riñon al mercado negro:',
+                'Lee y marca las casillas para poder continuar:',
                 style: TextStyle(fontSize: 18),
               ),
               const SizedBox(height: 16),
               CheckboxListTile(
-                title: const Text('LOPD'),
+                title: const Text('Acepto el LOPD'),
                 value: isChecked1,
                 onChanged: (value) {
                   setState(() {
@@ -75,7 +72,7 @@ class _CondicionesViewState extends State<CondicionesView> {
                 },
               ),
               CheckboxListTile(
-                title: const Text('Condiciones'),
+                title: const Text('Acepto las Condiciones'),
                 value: isChecked2,
                 onChanged: (value) {
                   setState(() {

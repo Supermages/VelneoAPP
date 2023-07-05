@@ -65,11 +65,14 @@ class _DetalleDeAlbaranViewState extends State<DetalleDeAlbaranView> {
             appBar: AppBar(
               title: const Text("Detalle de albaranes"),
               actions: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, condicionesRoute);
-                  },
-                  icon: const Icon(Icons.edit),
+                Tooltip(
+                  message: "Firmar",
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, condicionesRoute);
+                    },
+                    icon: const Icon(Icons.edit),
+                  ),
                 )
               ],
             ),

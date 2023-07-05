@@ -18,10 +18,10 @@ class Post {
   void postData({
     required int idDet,
     String? emp,
-    String? emp_div,
+    String? empdiv,
     DateTime? fch,
-    DateTime? fch_ent,
-    String? num_ped,
+    DateTime? fchent,
+    String? numped,
     int? clt,
   }) async {
     //https://demoapi.velneo.com/verp-api/vERP_2_dat_dat/v1/vta_ped_g/1?api_key=api123
@@ -35,14 +35,11 @@ class Post {
         dataFromAPI.vtaPedG[0].id = idDet;
         dataFromAPI.vtaPedG[0].clt = clt ?? dataFromAPI.vtaPedG[0].clt;
         dataFromAPI.vtaPedG[0].emp = emp ?? dataFromAPI.vtaPedG[0].emp;
-        dataFromAPI.vtaPedG[0].empDiv =
-            emp_div ?? dataFromAPI.vtaPedG[0].empDiv;
+        dataFromAPI.vtaPedG[0].empDiv = empdiv ?? dataFromAPI.vtaPedG[0].empDiv;
         dataFromAPI.vtaPedG[0].fch = fch ?? dataFromAPI.vtaPedG[0].fch;
-        dataFromAPI.vtaPedG[0].fchEnt =
-            fch_ent ?? dataFromAPI.vtaPedG[0].fchEnt;
-        dataFromAPI.vtaPedG[0].numPed =
-            num_ped ?? dataFromAPI.vtaPedG[0].numPed;
-        String modifiedApiData = await json.encode(dataFromAPI);
+        dataFromAPI.vtaPedG[0].fchEnt = fchent ?? dataFromAPI.vtaPedG[0].fchEnt;
+        dataFromAPI.vtaPedG[0].numPed = numped ?? dataFromAPI.vtaPedG[0].numPed;
+        String modifiedApiData = json.encode(dataFromAPI);
         log("Lista: $modifiedApiData");
 
         /*var responsedel = await http.delete(Uri.parse(
@@ -67,7 +64,7 @@ class Post {
           log('Error: ${response.statusCode}');
         }
       } else {
-        print('Error al eliminar el dato');
+        log('Error al eliminar el dato');
       }
 
       // "https://demoapi.velneo.com/verp-api/vERP_2_dat_dat/v1/vta_ped_g?api_key=api123"),
