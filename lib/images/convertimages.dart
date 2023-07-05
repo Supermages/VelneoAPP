@@ -10,10 +10,10 @@ import 'dart:convert';
 import "dart:developer";
 import 'dart:typed_data';
 
-convertirImagen(context, _signaturePadStateKey, metodo) async {
-  log("${_signaturePadStateKey.currentState}");
+convertirImagen(context, signaturePadStateKey, metodo) async {
+  log("${signaturePadStateKey.currentState}");
   ui.Image image =
-      await _signaturePadStateKey.currentState!.toImage(pixelRatio: 2.0);
+      await signaturePadStateKey.currentState!.toImage(pixelRatio: 2.0);
   log("$image");
   final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
   // comprobar si esta vacio o no

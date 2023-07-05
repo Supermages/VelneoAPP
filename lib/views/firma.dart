@@ -22,7 +22,7 @@ class _FirmaViewState extends State<FirmaView> {
     super.initState();
   }
 
-  bool _thereIsSignature = false;
+  bool thereIsSignature = false;
   final metodo = const ConvertImages();
   final GlobalKey<SfSignaturePadState> _signaturePadStateKey = GlobalKey();
   Offset offsetValue = const Offset(0, 0);
@@ -57,7 +57,7 @@ class _FirmaViewState extends State<FirmaView> {
               padding: const EdgeInsets.only(top: 8),
               child: ElevatedButton.icon(
                   onPressed: () async {
-                    _thereIsSignature = false;
+                    thereIsSignature = false;
                     offsetValue = const Offset(0, 0);
                     _signaturePadStateKey.currentState!.clear();
                   },

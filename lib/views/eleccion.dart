@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:velneoapp/dialogos/exit_entrada_screen.dart';
 import 'package:velneoapp/routes/constants.dart';
 
 class EleccionView extends StatefulWidget {
@@ -20,15 +21,23 @@ class _EleccionViewState extends State<EleccionView> {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                entradaRoute,
-                (route) => false,
-              );
+            onPressed: () async {
+              final shouldExitToScreen =
+                  await showExitEntradaScreenDialog(context);
+              if (shouldExitToScreen) {
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil(entradaRoute, (route) => false);
+                //TODO Peligroso, por si las dudas, que al parecer a Apple no le gusta.
+              }
             },
             icon: const Icon(Icons.exit_to_app),
-          )
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, dayNightRoute);
+            },
+            icon: const Icon(Icons.settings),
+          ),
         ],
         title: const Text("Página de elección"),
       ),

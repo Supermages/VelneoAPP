@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 typedef DialogOptionBuilder<T> = Map<String, T?> Function();
 
-Future<T?> showGenericDialog<T>({
+Future<T?> showGenericDialogTwoOptions<T>({
   required BuildContext context,
   required String title,
   required String content,
@@ -17,12 +17,15 @@ Future<T?> showGenericDialog<T>({
         content: Text(content),
         actions: options.keys.map((optionTitle) {
           final value = options[optionTitle];
-          return ElevatedButton.icon(
-            icon: const Icon(Icons.check),
+          return TextButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              if (value != null) {
+                Navigator.of(context).pop(value);
+              } else {
+                Navigator.of(context).pop();
+              }
             },
-            label: Text(optionTitle),
+            child: Text(optionTitle),
           );
         }).toList(),
       );
