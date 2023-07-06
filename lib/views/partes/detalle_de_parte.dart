@@ -49,7 +49,7 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
         throw ("NONOAAAAAAA");
       }
     } catch (e) {
-      log("NONO${e.toString()}");
+      log("NONO ewrror => ${e.toString()}");
     }
   }
 

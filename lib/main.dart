@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
           detalleDeAlbaranesRoute: (context) => const DetalleDeAlbaranView(),
           detalleDePartesRoute: (context) => const DetalleDePartesView(),
           condicionesRoute: (context) => const CondicionesView(),
-          configRoute: (context) => const ConfigView()
+          configRoute: (context) => const ConfigView(),
         },
         theme: ThemeData(),
         darkTheme: ThemeData.dark(),
