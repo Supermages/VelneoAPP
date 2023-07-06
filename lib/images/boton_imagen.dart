@@ -8,6 +8,7 @@ import 'package:velneoapp/images/image_to_base64_and!.dart';
 
 const patata = ConvertImages();
 File? hola;
+const convertimg = ConvertImages();
 
 class BottonImage extends StatefulWidget {
   final int id;
@@ -105,8 +106,7 @@ class _BottonImageState extends State<BottonImage> {
                             log('Error: $e');
                           }
                           log("PATATA:$selectedImagePath}");
-                          const hola = ConvertImages();
-                          log("Base64 => ${hola.convertUbFileBase64(selectedImagePath)}");
+                          log("Base64 => ${convertimg.convertUbFileBase64(selectedImagePath)}");
                         } else {
                           showErrorDialog(
                               context, "¡No se ha seleccionado una imagen!");
@@ -134,6 +134,7 @@ class _BottonImageState extends State<BottonImage> {
                         selectedImagePath = await selectImageFromCamera();
                         if (selectedImagePath.isNotEmpty) {
                           Navigator.pop(context);
+                          log("Base64 => ${convertimg.convertUbFileBase64(selectedImagePath)}");
                           setState(() {});
                         } else {
                           showErrorDialog(
