@@ -12,6 +12,7 @@ import 'package:velneoapp/routes/constants.dart';
 
 void main() {
   runApp(const MyApp());
+  // imageCache.clear();
 }
 
 class MyApp extends StatefulWidget {
