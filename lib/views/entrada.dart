@@ -37,7 +37,7 @@ class EntradaView extends StatelessWidget {
               padding: const EdgeInsets.only(top: 125.0),
               child: Container(
                 alignment: Alignment.topCenter,
-                child: Image.asset('assets/images/rubicon.png',
+                child: Image.asset('assets/images/Rubicon.png',
                     width: MediaQuery.of(context).size.width * 0.80),
               ),
             ),

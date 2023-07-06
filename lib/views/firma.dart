@@ -2,8 +2,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
 import 'package:velneoapp/dialogos/error_dialog.dart';
-import 'package:velneoapp/image/convert_images.dart';
-import 'package:velneoapp/images/convertimages.dart';
+import 'package:velneoapp/images/image_to_base64_and!.dart';
+import 'package:velneoapp/images/file_giver.dart';
 
 const convertImages = ConvertImages();
 String patata = '';
