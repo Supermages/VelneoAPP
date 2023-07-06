@@ -7,7 +7,7 @@ import 'package:velneoapp/routes/constants.dart';
 
 int index = 0;
 
-setNumeroIndex(numero) {
+setNumeroIndex(int numero) {
   index = numero;
 }
 

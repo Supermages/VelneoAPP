@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
@@ -12,16 +13,34 @@ class PartesView extends StatefulWidget {
   State<PartesView> createState() => _PartesViewState();
 }
 
-class _PartesViewState extends State<PartesView> {
-  bool _isLoading = true;
+class Debouncer {
+  int? milliseconds;
+  VoidCallback? action;
+  Timer? timer;
 
+  run(VoidCallback action) {
+    if (null != timer) {
+      timer!.cancel();
+    }
+    timer = Timer(
+      Duration(milliseconds: Duration.millisecondsPerSecond),
+      action,
+    );
+  }
+}
+
+class _PartesViewState extends State<PartesView> {
+  Partes? dataFromAPI;
+  final _debouncer = Debouncer();
+  bool _isLoading = true;
+  List<Prt> valores = [];
   @override
   void initState() {
-    super.initState();
     _getData();
+    setState(() {});
+    super.initState();
   }
 
-  Partes? dataFromAPI;
   _getData() async {
     try {
       String url =
@@ -40,12 +59,13 @@ class _PartesViewState extends State<PartesView> {
       log("NONO");
       log(e.toString());
     }
+    valores = dataFromAPI!.vtaPedGs;
   }
 
   @override
   void dispose() {
     super.dispose();
-    _getData();
+    //_getData();
   }
 
   @override
@@ -58,46 +78,108 @@ class _PartesViewState extends State<PartesView> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: dataFromAPI!.vtaPedGs.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      setId(dataFromAPI!.vtaPedGs[index].id);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const DetalleDePartesView()),
+          : Column(
+              children: <Widget>[
+                //Search Bar to List of typed Subject
+                Container(
+                  padding: const EdgeInsets.all(15),
+                  child: TextField(
+                    textInputAction: TextInputAction.search,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                        borderSide: const BorderSide(
+                          color: Colors.grey,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide: const BorderSide(
+                          color: Colors.blue,
+                        ),
+                      ),
+                      suffixIcon: const InkWell(
+                        child: Icon(Icons.search),
+                      ),
+                      contentPadding: const EdgeInsets.all(15.0),
+                      hintText: 'Search ',
+                    ),
+                    onChanged: (string) {
+                      _debouncer.run(() {
+                        setState(() {
+                          valores = dataFromAPI!.vtaPedGs
+                              .where(
+                                (u) => (u.id
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(string.toLowerCase()) ||
+                                    u.clt
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(string.toLowerCase()) ||
+                                    u.emp
+                                        .toLowerCase()
+                                        .contains(string.toLowerCase())),
+                              )
+                              .toList();
+                        });
+                        log("valores: $valores");
+                      });
+                    }, //toLowerCase().contains(
+                    //string.toLowerCase(),
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: const ClampingScrollPhysics(),
+                    padding: const EdgeInsets.all(5),
+                    itemCount: valores.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          side: BorderSide(
+                            color: Colors.grey.shade300,
+                          ),
+                        ),
+                        child: GestureDetector(
+                          onTap: () {
+                            setId(dataFromAPI!.vtaPedGs[index].id);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const DetalleDePartesView()),
+                            );
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.all(5.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  "ID: ${valores[index].id}",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                Text(
+                                  "Cliente: ${valores[index].clt}",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                Text(
+                                  "Empresa: ${valores[index].emp}",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       );
                     },
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            const Text("ID: "),
-                            Text("${dataFromAPI!.vtaPedGs[index].id}"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            const Text("CLT: "),
-                            Text("${dataFromAPI!.vtaPedGs[index].clt}"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            const Text("EMP: "),
-                            Text(dataFromAPI!.vtaPedGs[index].emp),
-                          ],
-                        ),
-                      ],
-                    ),
                   ),
-                );
-              },
+                ),
+              ],
             ),
     );
   }

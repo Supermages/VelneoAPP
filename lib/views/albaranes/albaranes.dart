@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:velneoapp/api/modelos/api_model_albaranes.dart';
 import 'dart:convert';
@@ -12,16 +14,33 @@ class AlbaranesVentaView extends StatefulWidget {
   State<AlbaranesVentaView> createState() => _AlbaranesVentaViewState();
 }
 
-class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
-  bool _isLoading = true;
+class Debouncer {
+  int? milliseconds;
+  VoidCallback? action;
+  Timer? timer;
 
+  run(VoidCallback action) {
+    if (null != timer) {
+      timer!.cancel();
+    }
+    timer = Timer(
+      Duration(milliseconds: Duration.millisecondsPerSecond),
+      action,
+    );
+  }
+}
+
+class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
+  AlbaranesVenta? dataFromAPI;
+  bool _isLoading = true;
+  final _debouncer = Debouncer();
+  List<VtaFacG> valores = [];
   @override
   void initState() {
     super.initState();
     _getData();
   }
 
-  AlbaranesVenta? dataFromAPI;
   _getData() async {
     try {
       String url =
@@ -32,6 +51,7 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
         log("jiji");
         dataFromAPI = AlbaranesVenta.fromJson(json.decode(res.body));
         _isLoading = false;
+        valores = dataFromAPI!.vtaFacG;
         setState(() {});
       } else {
         throw ("DON");
@@ -40,12 +60,6 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
       log("NO");
       log(e.toString());
     }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _getData();
   }
 
   @override
@@ -58,59 +72,115 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: dataFromAPI!.vtaFacG.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      try {
-                        log("${index + 2}");
-                        setNumeroIndex(index + 2);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const DetalleDeAlbaranView(),
-                          ),
-                        );
-                      } catch (e) {
-                        log(e.toString());
-                      }
-                    },
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            const Text("FCH: "),
-                            Text("${dataFromAPI!.vtaFacG[index].fch}"),
-                          ],
+          : Column(
+              children: <Widget>[
+                //Search Bar to List of typed Subject
+                Container(
+                  padding: const EdgeInsets.all(15),
+                  child: TextField(
+                    textInputAction: TextInputAction.search,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                        borderSide: const BorderSide(
+                          color: Colors.grey,
                         ),
-                        Row(
-                          children: [
-                            const Text("numFac: "),
-                            Text(dataFromAPI!.vtaFacG[index].numFac),
-                          ],
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide: const BorderSide(
+                          color: Colors.blue,
                         ),
-                        Row(
-                          children: [
-                            const Text("CLT: "),
-                            Text("${dataFromAPI!.vtaFacG[index].clt}"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            const Text("totFac: "),
-                            Text("${dataFromAPI!.vtaFacG[index].totFac}"),
-                          ],
-                        ),
-                        Row(children: [Text("Firmado " "${index + 1}")])
-                      ],
+                      ),
+                      suffixIcon: const InkWell(
+                        child: Icon(Icons.search),
+                      ),
+                      contentPadding: const EdgeInsets.all(15.0),
+                      hintText: 'Search ',
                     ),
+                    onChanged: (string) {
+                      _debouncer.run(() {
+                        setState(() {
+                          valores = dataFromAPI!.vtaFacG
+                              .where(
+                                (u) => (u.clt
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(string.toLowerCase()) ||
+                                    u.numFac
+                                        .toLowerCase()
+                                        .contains(string.toLowerCase())),
+                              )
+                              .toList();
+                        });
+                        log("valores: $valores");
+                      });
+                    }, //toLowerCase().contains(
+                    //string.toLowerCase(),
                   ),
-                );
-              },
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: const ClampingScrollPhysics(),
+                    padding: const EdgeInsets.all(5),
+                    itemCount: valores.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return GestureDetector(
+                        onTap: () {
+                          setNumeroIndex(int.parse(valores[index]
+                              .numFac
+                              .substring(valores[index].numFac.length - 2)));
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const DetalleDeAlbaranView(),
+                            ),
+                          );
+                        },
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            side: BorderSide(
+                              color: Colors.grey.shade300,
+                            ),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(5.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  "ID: ${valores[index].fch}",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                Text(
+                                  "Numero factura: ${valores[index].numFac}",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                Text(
+                                  "Cliente: ${valores[index].clt}",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                Text(
+                                  "Total factura: ${valores[index].totFac}",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                Text(
+                                  "Firmado: ${index + 1}",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
     );
   }
