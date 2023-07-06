@@ -35,7 +35,9 @@ class _PartesViewState extends State<PartesView> {
   Partes? dataFromAPI;
   final _debouncer = Debouncer();
   bool _isLoading = true;
+  TextEditingController _textEditingController = TextEditingController();
   List<Prt> valores = [];
+  List<Prt> todosLosValores = [];
   @override
   void initState() {
     _getData();
@@ -61,6 +63,24 @@ class _PartesViewState extends State<PartesView> {
       log("Error antes de conectarse => ${e.toString()}");
     }
     valores = dataFromAPI!.vtaPedGs;
+    todosLosValores = valores;
+    log("valores: $valores todoslosvalores: $todosLosValores");
+  }
+
+  IconButton iconButtonCambiante() {
+    if (_textEditingController.text == "") {
+      return IconButton(onPressed: () {}, icon: const Icon(Icons.search));
+    } else {
+      return IconButton(
+        icon: const Icon(Icons.clear),
+        onPressed: () {
+          _textEditingController.text = "";
+          valores = todosLosValores;
+          log("Valores después de botón $valores");
+          setState(() {});
+        },
+      );
+    }
   }
 
   @override
@@ -80,7 +100,7 @@ class _PartesViewState extends State<PartesView> {
                   padding: const EdgeInsets.all(15),
                   child: TextField(
                     textInputAction: TextInputAction.search,
-                    controller: _searchController,
+                    controller: _textEditingController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25.0),
@@ -94,41 +114,30 @@ class _PartesViewState extends State<PartesView> {
                           color: Colors.blue,
                         ),
                       ),
-                      suffixIcon: IconButton(
-                        icon: const Icon(Icons.clear),
-                        onPressed: () {
-                          _searchController.text = "";
-                          string = _searchController.text;
-                        },
-                      ),
+                      suffixIcon: iconButtonCambiante(),
                       contentPadding: const EdgeInsets.all(15.0),
                       hintText: 'Buscar...',
                     ),
                     onChanged: (string) {
-                      _debouncer.run(
-                        () {
-                          setState(
-                            () {
-                              valores = dataFromAPI!.vtaPedGs
-                                  .where(
-                                    (u) => (u.id
-                                            .toString()
-                                            .toLowerCase()
-                                            .contains(string.toLowerCase()) ||
-                                        u.clt
-                                            .toString()
-                                            .toLowerCase()
-                                            .contains(string.toLowerCase()) ||
-                                        u.emp
-                                            .toLowerCase()
-                                            .contains(string.toLowerCase())),
-                                  )
-                                  .toList();
-                            },
-                          );
-                          log("valores: $valores");
-                        },
-                      );
+                      _debouncer.run(() {
+                        setState(() {
+                          valores = dataFromAPI!.vtaPedGs
+                              .where(
+                                (u) => (u.id
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(string.toLowerCase()) ||
+                                    u.clt
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(string.toLowerCase()) ||
+                                    u.emp
+                                        .toLowerCase()
+                                        .contains(string.toLowerCase())),
+                              )
+                              .toList();
+                        });
+                      });
                     }, //toLowerCase().contains(
                     //string.toLowerCase(),
                   ),

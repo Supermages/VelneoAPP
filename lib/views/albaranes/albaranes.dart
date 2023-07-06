@@ -34,7 +34,9 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
   AlbaranesVenta? dataFromAPI;
   bool _isLoading = true;
   final _debouncer = Debouncer();
+  TextEditingController _textEditingController = TextEditingController();
   List<VtaFacG> valores = [];
+  List<VtaFacG> todosLosValores = [];
   @override
   void initState() {
     super.initState();
@@ -59,6 +61,24 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
     } catch (e) {
       log("Error antes de conectarse => ${e.toString()}");
     }
+    valores = dataFromAPI!.vtaFacG;
+    todosLosValores = valores;
+  }
+
+  IconButton iconButtonCanviante() {
+    if (_textEditingController.text == "") {
+      return IconButton(onPressed: () {}, icon: const Icon(Icons.search));
+    } else {
+      return IconButton(
+        icon: const Icon(Icons.clear),
+        onPressed: () {
+          _textEditingController.text = "";
+          valores = todosLosValores;
+          log("Valores despues de bototnb $valores");
+          setState(() {});
+        },
+      );
+    }
   }
 
   @override
@@ -78,6 +98,7 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
                   padding: const EdgeInsets.all(15),
                   child: TextField(
                     textInputAction: TextInputAction.search,
+                    controller: _textEditingController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25.0),
@@ -91,9 +112,7 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
                           color: Colors.blue,
                         ),
                       ),
-                      suffixIcon: const InkWell(
-                        child: Icon(Icons.search),
-                      ),
+                      suffixIcon: iconButtonCanviante(),
                       contentPadding: const EdgeInsets.all(15.0),
                       hintText: 'Buscar...',
                     ),
