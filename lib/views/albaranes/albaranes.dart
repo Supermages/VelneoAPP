@@ -24,7 +24,7 @@ class Debouncer {
       timer!.cancel();
     }
     timer = Timer(
-      Duration(milliseconds: Duration.millisecondsPerSecond),
+      const Duration(milliseconds: Duration.millisecondsPerSecond),
       action,
     );
   }
@@ -95,7 +95,7 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
                         child: Icon(Icons.search),
                       ),
                       contentPadding: const EdgeInsets.all(15.0),
-                      hintText: 'Search ',
+                      hintText: 'Buscar...',
                     ),
                     onChanged: (string) {
                       _debouncer.run(() {
@@ -125,11 +125,12 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
                     padding: const EdgeInsets.all(5),
                     itemCount: valores.length,
                     itemBuilder: (BuildContext context, int index) {
+                      int firmanum = int.parse(valores[index]
+                          .numFac
+                          .substring(valores[index].numFac.length - 2));
                       return GestureDetector(
                         onTap: () {
-                          setNumeroIndex(int.parse(valores[index]
-                              .numFac
-                              .substring(valores[index].numFac.length - 2)));
+                          setNumeroIndex(firmanum);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -139,39 +140,49 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
                           );
                         },
                         child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            side: BorderSide(
-                              color: Colors.grey.shade300,
+                          child: ClipPath(
+                            clipper: ShapeBorderClipper(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(3),
+                              ),
                             ),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(5.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  "ID: ${valores[index].fch}",
-                                  style: TextStyle(fontSize: 16),
+                            child: Container(
+                              padding: const EdgeInsets.all(4),
+                              decoration: const BoxDecoration(
+                                border: Border(
+                                  left:
+                                      BorderSide(color: Colors.green, width: 5),
                                 ),
-                                Text(
-                                  "Numero factura: ${valores[index].numFac}",
-                                  style: TextStyle(fontSize: 16),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      "Fecha: ${valores[index].fch}",
+                                      style: const TextStyle(fontSize: 16),
+                                    ),
+                                    Text(
+                                      "Numero factura: ${valores[index].numFac}",
+                                      style: const TextStyle(fontSize: 16),
+                                    ),
+                                    Text(
+                                      "Cliente: ${valores[index].clt}",
+                                      style: const TextStyle(fontSize: 16),
+                                    ),
+                                    Text(
+                                      "Total factura: ${valores[index].totFac}",
+                                      style: const TextStyle(fontSize: 16),
+                                    ),
+                                    Text(
+                                      "Firmado: $firmanum",
+                                      style: const TextStyle(fontSize: 16),
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  "Cliente: ${valores[index].clt}",
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                                Text(
-                                  "Total factura: ${valores[index].totFac}",
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                                Text(
-                                  "Firmado: ${index + 1}",
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                              ],
+                              ),
                             ),
                           ),
                         ),

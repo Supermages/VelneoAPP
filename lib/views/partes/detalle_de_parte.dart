@@ -107,7 +107,7 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
                             child: Row(
                               //vtaPedGs.id
                               children: [
-                                Text("CLT: ${dataFromAPI!.vtaPedG[0].clt}"),
+                                Text("Ciente: ${dataFromAPI!.vtaPedG[0].clt}"),
                               ],
                             ),
                           ),
@@ -115,24 +115,7 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
                             padding: const EdgeInsets.only(top: 8.0),
                             child: Row(
                               children: [
-                                Text("EMP: ${dataFromAPI!.vtaPedG[0].emp}"),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Row(
-                              children: [
-                                Text(
-                                    "empDiv: ${dataFromAPI!.vtaPedG[0].empDiv}"),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Row(
-                              children: [
-                                Text("FCH: ${dataFromAPI!.vtaPedG[0].fch}"),
+                                Text("Empresa: ${dataFromAPI!.vtaPedG[0].emp}"),
                               ],
                             ),
                           ),
@@ -141,7 +124,15 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
                             child: Row(
                               children: [
                                 Text(
-                                    "fchEnt: ${dataFromAPI!.vtaPedG[0].fchEnt}"),
+                                    "Empresa Div.: ${dataFromAPI!.vtaPedG[0].empDiv}"),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: Row(
+                              children: [
+                                Text("Fecha: ${dataFromAPI!.vtaPedG[0].fch}"),
                               ],
                             ),
                           ),
@@ -150,7 +141,16 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
                             child: Row(
                               children: [
                                 Text(
-                                    "numPed: ${dataFromAPI!.vtaPedG[0].numPed}"),
+                                    "Fecha de entrada:\n${dataFromAPI!.vtaPedG[0].fchEnt}"),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: Row(
+                              children: [
+                                Text(
+                                    "Numero de pedido: ${dataFromAPI!.vtaPedG[0].numPed}"),
                               ],
                             ),
                           ),

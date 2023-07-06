@@ -93,7 +93,7 @@ class _DetalleDeAlbaranViewState extends State<DetalleDeAlbaranView> {
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
                               children: [
-                                Text("CLT: ${dataFromAPI!.vtaFacG[0].clt}"),
+                                Text("Cliente: ${dataFromAPI!.vtaFacG[0].clt}"),
                               ],
                             ),
                           ),
@@ -101,16 +101,7 @@ class _DetalleDeAlbaranViewState extends State<DetalleDeAlbaranView> {
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
                               children: [
-                                Text("FCH: ${dataFromAPI!.vtaFacG[0].fch}"),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Text(
-                                    "numFac: ${dataFromAPI!.vtaFacG[0].numFac}"),
+                                Text("Fecha: ${dataFromAPI!.vtaFacG[0].fch}"),
                               ],
                             ),
                           ),
@@ -119,7 +110,16 @@ class _DetalleDeAlbaranViewState extends State<DetalleDeAlbaranView> {
                             child: Row(
                               children: [
                                 Text(
-                                    "totFac: ${dataFromAPI!.vtaFacG[0].totFac}"),
+                                    "Numero factura: ${dataFromAPI!.vtaFacG[0].numFac}"),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Text(
+                                    "Total factura: ${dataFromAPI!.vtaFacG[0].totFac}"),
                               ],
                             ),
                           ),

@@ -23,7 +23,7 @@ class Debouncer {
       timer!.cancel();
     }
     timer = Timer(
-      Duration(milliseconds: Duration.millisecondsPerSecond),
+      const Duration(milliseconds: Duration.millisecondsPerSecond),
       action,
     );
   }
@@ -95,7 +95,7 @@ class _PartesViewState extends State<PartesView> {
                         child: Icon(Icons.search),
                       ),
                       contentPadding: const EdgeInsets.all(15.0),
-                      hintText: 'Search ',
+                      hintText: 'Buscar...',
                     ),
                     onChanged: (string) {
                       _debouncer.run(() {
@@ -129,42 +129,52 @@ class _PartesViewState extends State<PartesView> {
                     padding: const EdgeInsets.all(5),
                     itemCount: valores.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          side: BorderSide(
-                            color: Colors.grey.shade300,
-                          ),
-                        ),
-                        child: GestureDetector(
-                          onTap: () {
-                            setId(dataFromAPI!.vtaPedGs[index].id);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const DetalleDePartesView()),
-                            );
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.all(5.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  "ID: ${valores[index].id}",
-                                  style: TextStyle(fontSize: 16),
+                      return GestureDetector(
+                        onTap: () {
+                          setId(dataFromAPI!.vtaPedGs[index].id);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const DetalleDePartesView()),
+                          );
+                        },
+                        child: Card(
+                          child: ClipPath(
+                            clipper: ShapeBorderClipper(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(3),
+                              ),
+                            ),
+                            child: Container(
+                              padding: const EdgeInsets.all(4),
+                              decoration: const BoxDecoration(
+                                border: Border(
+                                  left:
+                                      BorderSide(color: Colors.green, width: 5),
                                 ),
-                                Text(
-                                  "Cliente: ${valores[index].clt}",
-                                  style: TextStyle(fontSize: 16),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      "ID: ${valores[index].id}",
+                                      style: const TextStyle(fontSize: 16),
+                                    ),
+                                    Text(
+                                      "Cliente: ${valores[index].clt}",
+                                      style: const TextStyle(fontSize: 16),
+                                    ),
+                                    Text(
+                                      "Empresa: ${valores[index].emp}",
+                                      style: const TextStyle(fontSize: 16),
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  "Empresa: ${valores[index].emp}",
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                              ],
+                              ),
                             ),
                           ),
                         ),
