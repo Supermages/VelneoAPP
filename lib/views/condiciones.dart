@@ -56,7 +56,10 @@ class _CondicionesViewState extends State<CondicionesView> {
                   ]),
                 ),
               ),
-              const Divider(color: Colors.black),
+              const Divider(
+                color: Colors.tealAccent,
+                thickness: 2,
+              ),
               const Text(
                 'Lee las condiciones y marca las casillas para poder continuar:',
                 style: TextStyle(fontSize: 18),

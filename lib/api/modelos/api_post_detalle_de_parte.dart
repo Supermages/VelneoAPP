@@ -71,7 +71,7 @@ class Post {
       //setState(() {});
       /*} else {}*/
     } catch (e) {
-      log("NONO fallo el  ${e.toString()}");
+      log("Ha fallado el ${e.toString()}");
     }
   }
 }

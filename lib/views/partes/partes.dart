@@ -27,18 +27,17 @@ class _PartesViewState extends State<PartesView> {
       String url =
           "https://demoapi.velneo.com/verp-api/vERP_2_dat_dat/v1/vta_ped_g?page%5Bsize%5D=20&fields=id,clt,emp&api_key=api123";
       http.Response res = await http.get(Uri.parse(url));
-      log("001");
       if (res.statusCode == 200) {
-        log("jiji");
+        log("Correcto");
         dataFromAPI = Partes.fromJson(json.decode(res.body));
         _isLoading = false;
         setState(() {});
       } else {
-        throw ("NONOAAAAAAA");
+        log("${res.statusCode}");
+        throw ("Error durante la conexión");
       }
     } catch (e) {
-      log("NONO");
-      log(e.toString());
+      log("Error antes de conectarse => ${e.toString()}");
     }
   }
 
@@ -68,49 +67,48 @@ class _PartesViewState extends State<PartesView> {
                           builder: (context) => const DetalleDePartesView()),
                     );
                   },
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      side: const BorderSide(
-                        width: 1,
-                        color: Colors.black,
-                      ),
-                    ),
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        gradient: LinearGradient(
-                          colors: [
-                            Color.fromARGB(255, 195, 179, 179),
-                            Color.fromARGB(255, 117, 141, 154)
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
+                  child: ClipPath(
+                    clipper: ShapeBorderClipper(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(3))),
+                    child: Card(
+                      child: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            left: BorderSide(color: Colors.green, width: 5),
+                          ),
                         ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                const Text("ID: "),
-                                Text("${dataFromAPI!.vtaPedGs[index].id}"),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                const Text("CLT: "),
-                                Text("${dataFromAPI!.vtaPedGs[index].clt}"),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                const Text("EMP: "),
-                                Text(dataFromAPI!.vtaPedGs[index].emp),
-                              ],
-                            ),
-                          ],
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    "ID: ${dataFromAPI!.vtaPedGs[index].id}",
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "CLT: ${dataFromAPI!.vtaPedGs[index].clt}",
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "EMP: ${dataFromAPI!.vtaPedGs[index].emp}",
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

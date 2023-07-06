@@ -50,7 +50,7 @@ class _FirmaViewState extends State<FirmaView> {
               maximumStrokeWidth: 3.0,
               onDraw: (offset, time) {
                 offsetValue = offset;
-                log("$offsetValue");
+                log("Offset: $offsetValue");
               },
             ),
             Padding(
@@ -74,7 +74,7 @@ class _FirmaViewState extends State<FirmaView> {
             Text(patata),
             ElevatedButton.icon(
                 onPressed: () async {
-                  log("$offsetValue");
+                  log("Offset: $offsetValue");
                   if (offsetValue == Offset.zero) {
                     showErrorDialog(
                       context,

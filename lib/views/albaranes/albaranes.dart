@@ -27,18 +27,17 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
       String url =
           "https://demoapi.velneo.com/verp-api/vERP_2_dat_dat/v1/vta_fac_g?page%5Bsize%5D=20&api_key=api123";
       http.Response res = await http.get(Uri.parse(url));
-      log("001");
       if (res.statusCode == 200) {
-        log("jiji");
+        log("Correcto");
         dataFromAPI = AlbaranesVenta.fromJson(json.decode(res.body));
         _isLoading = false;
         setState(() {});
       } else {
-        throw ("DON");
+        log("${res.statusCode}");
+        throw ("Error durante la conexión");
       }
     } catch (e) {
-      log("NO");
-      log(e.toString());
+      log("Error antes de conectarse => ${e.toString()}");
     }
   }
 
@@ -74,55 +73,65 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
                     }
                   },
                   child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      side: const BorderSide(
-                        width: 1,
-                        color: Colors.black,
-                      ),
-                    ),
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        gradient: LinearGradient(
-                          colors: [
-                            Color.fromARGB(255, 195, 179, 179),
-                            Color.fromARGB(255, 117, 141, 154)
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
+                    child: ClipPath(
+                      clipper: ShapeBorderClipper(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(3),
                         ),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                const Text("FCH: "),
-                                Text("${dataFromAPI!.vtaFacG[index].fch}"),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                const Text("numFac: "),
-                                Text(dataFromAPI!.vtaFacG[index].numFac),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                const Text("CLT: "),
-                                Text("${dataFromAPI!.vtaFacG[index].clt}"),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                const Text("totFac: "),
-                                Text("${dataFromAPI!.vtaFacG[index].totFac}"),
-                              ],
-                            ),
-                            Row(children: [Text("Firmado " "${index + 1}")])
-                          ],
+                      child: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            left: BorderSide(color: Colors.green, width: 5),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    "FCH: ${dataFromAPI!.vtaFacG[index].fch}",
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "numFac: ${dataFromAPI!.vtaFacG[index].numFac}",
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "CLT: ${dataFromAPI!.vtaFacG[index].clt}",
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "totFac: ${dataFromAPI!.vtaFacG[index].totFac}",
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "Firmado " "${index + 1}",
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
