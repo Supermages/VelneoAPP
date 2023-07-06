@@ -36,23 +36,17 @@ class _DetalleDeAlbaranViewState extends State<DetalleDeAlbaranView> {
           "https://demoapi.velneo.com/verp-api/vERP_2_dat_dat/v1/vta_fac_g/$index?api_key=api123";
       http.Response res = await http.get(Uri.parse(url));
       if (res.statusCode == 200) {
-        log("jiji");
+        log("Correcto");
         dataFromAPI = AlbaranesDeVentaDetalle.fromJson(json.decode(res.body));
         _isLoading = false;
         setState(() {});
       } else {
-        throw ("NONOAAAAAAA");
+        log("${res.statusCode}");
+        throw ("Error durante la conexión");
       }
     } catch (e) {
-      log("NONO");
-      log(e.toString());
+      log("Error antes de conectarse => ${e.toString()}");
     }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _getData();
   }
 
   @override
@@ -77,34 +71,63 @@ class _DetalleDeAlbaranViewState extends State<DetalleDeAlbaranView> {
               ],
             ),
             body: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      const Text("CLT: "),
-                      Text("${dataFromAPI!.vtaFacG[0].clt}"),
-                    ],
+              padding: const EdgeInsets.all(12.0),
+              child: ClipPath(
+                clipper: ShapeBorderClipper(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(3))),
+                child: Card(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.23,
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        left: BorderSide(
+                            color: Color.fromARGB(255, 53, 170, 57), width: 5),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Text("CLT: ${dataFromAPI!.vtaFacG[0].clt}"),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Text("FCH: ${dataFromAPI!.vtaFacG[0].fch}"),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Text(
+                                    "numFac: ${dataFromAPI!.vtaFacG[0].numFac}"),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Text(
+                                    "totFac: ${dataFromAPI!.vtaFacG[0].totFac}"),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                  Row(
-                    children: [
-                      const Text("FCH: "),
-                      Text("${dataFromAPI!.vtaFacG[0].fch}"),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Text("NUMFAC: "),
-                      Text(dataFromAPI!.vtaFacG[0].numFac),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Text("TOTFAC: "),
-                      Text("${dataFromAPI!.vtaFacG[0].totFac}"),
-                    ],
-                  ),
-                ],
+                ),
               ),
             ),
           );

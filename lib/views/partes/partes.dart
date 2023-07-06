@@ -46,26 +46,19 @@ class _PartesViewState extends State<PartesView> {
       String url =
           "https://demoapi.velneo.com/verp-api/vERP_2_dat_dat/v1/vta_ped_g?page%5Bsize%5D=20&fields=id,clt,emp&api_key=api123";
       http.Response res = await http.get(Uri.parse(url));
-      log("001");
       if (res.statusCode == 200) {
-        log("jiji");
+        log("Correcto");
         dataFromAPI = Partes.fromJson(json.decode(res.body));
         _isLoading = false;
         setState(() {});
       } else {
-        throw ("NONOAAAAAAA");
+        log("${res.statusCode}");
+        throw ("Error durante la conexión");
       }
     } catch (e) {
-      log("NONO");
-      log(e.toString());
+      log("Error antes de conectarse => ${e.toString()}");
     }
     valores = dataFromAPI!.vtaPedGs;
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    //_getData();
   }
 
   @override

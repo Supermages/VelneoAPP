@@ -6,9 +6,8 @@ import 'package:velneoapp/api/modelos/api_img.dart';
 import 'package:velneoapp/dialogos/error_dialog.dart';
 import 'package:velneoapp/images/image_to_base64_and!.dart';
 
-const patata = ConvertImages();
-File? hola;
-const convertimg = ConvertImages();
+const convertimagen = ConvertImages();
+File? archivo;
 
 class BottonImage extends StatefulWidget {
   final int id;
@@ -30,21 +29,20 @@ class _BottonImageState extends State<BottonImage> {
 
   @override
   void dispose() {
-    hola = null;
+    archivo = null;
     super.dispose();
   }
 
   void ponerImagen() async {
-    hola = await patata.convertBase64File(
+    archivo = await convertimagen.convertBase64File(
         await ImageApi().patata(), "patata$id.png");
-    //log(await ImageApi().patata(idDet: idDet));
     setState(() {});
   }
 
   String selectedImagePath = '';
   @override
   Widget build(BuildContext context) {
-    return (hola != null)
+    return (archivo != null)
         ? IconButton(
             iconSize: 200,
             onPressed: () async {
@@ -53,7 +51,7 @@ class _BottonImageState extends State<BottonImage> {
             },
             icon: selectedImagePath.isEmpty
                 ? Image.file(
-                    hola!,
+                    archivo!,
                     height: 200,
                     width: 200,
                     fit: BoxFit.fill,
@@ -99,14 +97,11 @@ class _BottonImageState extends State<BottonImage> {
                             Navigator.pop(context);
                             setState(() {});
                             // Convierte el archivo a Base64
-                            //File file = File(selectedImagePath);
-
-                            //log("PATATA:$file");
                           } catch (e) {
                             log('Error: $e');
                           }
-                          log("PATATA:$selectedImagePath}");
-                          log("Base64 => ${convertimg.convertUbFileBase64(selectedImagePath)}");
+                          log("Path: $selectedImagePath}");
+                          log("Base64 => ${convertimagen.convertUbFileBase64(selectedImagePath)}");
                         } else {
                           showErrorDialog(
                               context, "¡No se ha seleccionado una imagen!");
@@ -134,7 +129,7 @@ class _BottonImageState extends State<BottonImage> {
                         selectedImagePath = await selectImageFromCamera();
                         if (selectedImagePath.isNotEmpty) {
                           Navigator.pop(context);
-                          log("Base64 => ${convertimg.convertUbFileBase64(selectedImagePath)}");
+                          log("Base64 => ${convertimagen.convertUbFileBase64(selectedImagePath)}");
                           setState(() {});
                         } else {
                           showErrorDialog(

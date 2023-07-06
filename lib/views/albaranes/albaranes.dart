@@ -46,19 +46,18 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
       String url =
           "https://demoapi.velneo.com/verp-api/vERP_2_dat_dat/v1/vta_fac_g?page%5Bsize%5D=20&api_key=api123";
       http.Response res = await http.get(Uri.parse(url));
-      log("001");
       if (res.statusCode == 200) {
-        log("jiji");
+        log("Correcto");
         dataFromAPI = AlbaranesVenta.fromJson(json.decode(res.body));
         _isLoading = false;
         valores = dataFromAPI!.vtaFacG;
         setState(() {});
       } else {
-        throw ("DON");
+        log("${res.statusCode}");
+        throw ("Error durante la conexión");
       }
     } catch (e) {
-      log("NO");
-      log(e.toString());
+      log("Error antes de conectarse => ${e.toString()}");
     }
   }
 

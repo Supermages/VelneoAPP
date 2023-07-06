@@ -18,8 +18,6 @@ convertirImagen(context, signaturePadStateKey, metodo) async {
   final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
   // comprobar si esta vacio o no
 
-  // ignore: use_build_context_synchronously
-
   log("${byteData!.lengthInBytes}");
   final Uint8List imageBytes = byteData.buffer
       .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
@@ -31,10 +29,9 @@ convertirImagen(context, signaturePadStateKey, metodo) async {
       ..setAttribute('download', 'Firma.png')
       ..click();
     log("$imageBytes");
-    String patata = base64.encode(imageBytes);
-    log(patata);
+    String encodificado = base64.encode(imageBytes);
+    log(encodificado);
     // Decodear base64 a imagen
-    //log("Estoy aqui => ${metodo.convertUbFileBase64(fileName)}");
   } else {
     final String path = (await getApplicationSupportDirectory()).path;
     final String fileName = '$path/Firma.png';
@@ -43,7 +40,6 @@ convertirImagen(context, signaturePadStateKey, metodo) async {
     await file.writeAsBytes(imageBytes, flush: true);
     OpenFile.open(fileName);
   }
-  //}
   Navigator.pushNamedAndRemoveUntil(context, eleccionRoute, (route) => false);
 }
 
