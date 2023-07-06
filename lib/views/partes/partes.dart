@@ -30,6 +30,8 @@ class Debouncer {
 }
 
 class _PartesViewState extends State<PartesView> {
+  String string = "";
+  final TextEditingController _searchController = TextEditingController();
   Partes? dataFromAPI;
   final _debouncer = Debouncer();
   bool _isLoading = true;
@@ -72,12 +74,13 @@ class _PartesViewState extends State<PartesView> {
               child: CircularProgressIndicator(),
             )
           : Column(
-              children: <Widget>[
+              children: [
                 //Search Bar to List of typed Subject
                 Container(
                   padding: const EdgeInsets.all(15),
                   child: TextField(
                     textInputAction: TextInputAction.search,
+                    controller: _searchController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25.0),
@@ -91,33 +94,41 @@ class _PartesViewState extends State<PartesView> {
                           color: Colors.blue,
                         ),
                       ),
-                      suffixIcon: const InkWell(
-                        child: Icon(Icons.search),
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.clear),
+                        onPressed: () {
+                          _searchController.text = "";
+                          string = _searchController.text;
+                        },
                       ),
                       contentPadding: const EdgeInsets.all(15.0),
                       hintText: 'Buscar...',
                     ),
                     onChanged: (string) {
-                      _debouncer.run(() {
-                        setState(() {
-                          valores = dataFromAPI!.vtaPedGs
-                              .where(
-                                (u) => (u.id
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(string.toLowerCase()) ||
-                                    u.clt
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(string.toLowerCase()) ||
-                                    u.emp
-                                        .toLowerCase()
-                                        .contains(string.toLowerCase())),
-                              )
-                              .toList();
-                        });
-                        log("valores: $valores");
-                      });
+                      _debouncer.run(
+                        () {
+                          setState(
+                            () {
+                              valores = dataFromAPI!.vtaPedGs
+                                  .where(
+                                    (u) => (u.id
+                                            .toString()
+                                            .toLowerCase()
+                                            .contains(string.toLowerCase()) ||
+                                        u.clt
+                                            .toString()
+                                            .toLowerCase()
+                                            .contains(string.toLowerCase()) ||
+                                        u.emp
+                                            .toLowerCase()
+                                            .contains(string.toLowerCase())),
+                                  )
+                                  .toList();
+                            },
+                          );
+                          log("valores: $valores");
+                        },
+                      );
                     }, //toLowerCase().contains(
                     //string.toLowerCase(),
                   ),
@@ -159,19 +170,16 @@ class _PartesViewState extends State<PartesView> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
+                                  children: [
+                                    for (final text in [
                                       "ID: ${valores[index].id}",
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
-                                    Text(
                                       "Cliente: ${valores[index].clt}",
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
-                                    Text(
-                                      "Empresa: ${valores[index].emp}",
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
+                                      "Empresa: ${valores[index].emp}"
+                                    ])
+                                      Text(
+                                        text,
+                                        style: const TextStyle(fontSize: 16),
+                                      ),
                                   ],
                                 ),
                               ),

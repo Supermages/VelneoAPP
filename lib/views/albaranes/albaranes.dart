@@ -160,26 +160,17 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text(
+                                    for (final text in [
                                       "Fecha: ${valores[index].fch}",
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
-                                    Text(
-                                      "Numero factura: ${valores[index].numFac}",
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
-                                    Text(
+                                      "Numero de factura: ${valores[index].numFac}",
                                       "Cliente: ${valores[index].clt}",
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
-                                    Text(
-                                      "Total factura: ${valores[index].totFac}",
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
-                                    Text(
+                                      "Total de la factura: ${valores[index].totFac}",
                                       "Firmado: $firmanum",
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
+                                    ])
+                                      Text(
+                                        text,
+                                        style: const TextStyle(fontSize: 16),
+                                      ),
                                   ],
                                 ),
                               ),
