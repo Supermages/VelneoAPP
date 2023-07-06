@@ -50,12 +50,6 @@ class _DetalleDeAlbaranViewState extends State<DetalleDeAlbaranView> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-    _getData();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return _isLoading
         ? const Center(
@@ -78,33 +72,47 @@ class _DetalleDeAlbaranViewState extends State<DetalleDeAlbaranView> {
             ),
             body: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Row(
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.12,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  gradient: LinearGradient(
+                    colors: [Color.fromARGB(255, 192, 187, 187), Colors.grey],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
                     children: [
-                      const Text("CLT: "),
-                      Text("${dataFromAPI!.vtaFacG[0].clt}"),
+                      Row(
+                        children: [
+                          const Text("CLT: "),
+                          Text("${dataFromAPI!.vtaFacG[0].clt}"),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          const Text("FCH: "),
+                          Text("${dataFromAPI!.vtaFacG[0].fch}"),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          const Text("NUMFAC: "),
+                          Text(dataFromAPI!.vtaFacG[0].numFac),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          const Text("TOTFAC: "),
+                          Text("${dataFromAPI!.vtaFacG[0].totFac}"),
+                        ],
+                      ),
                     ],
                   ),
-                  Row(
-                    children: [
-                      const Text("FCH: "),
-                      Text("${dataFromAPI!.vtaFacG[0].fch}"),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Text("NUMFAC: "),
-                      Text(dataFromAPI!.vtaFacG[0].numFac),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Text("TOTFAC: "),
-                      Text("${dataFromAPI!.vtaFacG[0].totFac}"),
-                    ],
-                  ),
-                ],
+                ),
               ),
             ),
           );

@@ -43,12 +43,6 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-    _getData();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -60,53 +54,77 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
             )
           : ListView.builder(
               scrollDirection: Axis.vertical,
+              physics: const ClampingScrollPhysics(),
+              padding: const EdgeInsets.all(7.5),
               itemCount: dataFromAPI!.vtaFacG.length,
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      try {
-                        log("${index + 2}");
-                        setNumeroIndex(index + 2);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const DetalleDeAlbaranView(),
-                          ),
-                        );
-                      } catch (e) {
-                        log(e.toString());
-                      }
-                    },
-                    child: Column(
-                      children: [
-                        Row(
+                return GestureDetector(
+                  onTap: () {
+                    try {
+                      log("${index + 2}");
+                      setNumeroIndex(index + 2);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const DetalleDeAlbaranView(),
+                        ),
+                      );
+                    } catch (e) {
+                      log(e.toString());
+                    }
+                  },
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      side: const BorderSide(
+                        width: 1,
+                        color: Colors.black,
+                      ),
+                    ),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        gradient: LinearGradient(
+                          colors: [
+                            Color.fromARGB(255, 195, 179, 179),
+                            Color.fromARGB(255, 117, 141, 154)
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
                           children: [
-                            const Text("FCH: "),
-                            Text("${dataFromAPI!.vtaFacG[index].fch}"),
+                            Row(
+                              children: [
+                                const Text("FCH: "),
+                                Text("${dataFromAPI!.vtaFacG[index].fch}"),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                const Text("numFac: "),
+                                Text(dataFromAPI!.vtaFacG[index].numFac),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                const Text("CLT: "),
+                                Text("${dataFromAPI!.vtaFacG[index].clt}"),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                const Text("totFac: "),
+                                Text("${dataFromAPI!.vtaFacG[index].totFac}"),
+                              ],
+                            ),
+                            Row(children: [Text("Firmado " "${index + 1}")])
                           ],
                         ),
-                        Row(
-                          children: [
-                            const Text("numFac: "),
-                            Text(dataFromAPI!.vtaFacG[index].numFac),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            const Text("CLT: "),
-                            Text("${dataFromAPI!.vtaFacG[index].clt}"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            const Text("totFac: "),
-                            Text("${dataFromAPI!.vtaFacG[index].totFac}"),
-                          ],
-                        ),
-                        Row(children: [Text("Firmado " "${index + 1}")])
-                      ],
+                      ),
                     ),
                   ),
                 );
