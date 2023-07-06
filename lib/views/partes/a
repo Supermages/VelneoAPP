@@ -1,0 +1,66 @@
+import 'package:flutter/material.dart';
+
+class TextFieldWithButton extends StatefulWidget {
+  @override
+  _TextFieldWithButtonState createState() => _TextFieldWithButtonState();
+}
+
+class _TextFieldWithButtonState extends State<TextFieldWithButton> {
+  TextEditingController _textEditingController = TextEditingController();
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    super.dispose();
+  }
+
+  void _clearTextField() {
+    setState(() {
+      _textEditingController.clear();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: TextField(
+            controller: _textEditingController,
+            decoration: InputDecoration(
+              hintText: 'Ingrese su texto...',
+            ),
+          ),
+        ),
+        IconButton(
+          icon: Icon(Icons.clear),
+          onPressed: _clearTextField,
+        ),
+      ],
+    );
+  }
+}
+
+// Ejemplo de uso:
+class MyHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('TextField con Botón'),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Center(
+          child: TextFieldWithButton(),
+        ),
+      ),
+    );
+  }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: MyHomePage(),
+  ));
+}

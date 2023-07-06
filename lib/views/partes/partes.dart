@@ -33,7 +33,9 @@ class _PartesViewState extends State<PartesView> {
   Partes? dataFromAPI;
   final _debouncer = Debouncer();
   bool _isLoading = true;
+  TextEditingController _textEditingController = TextEditingController();
   List<Prt> valores = [];
+  List<Prt> todosLosValores = [];
   @override
   void initState() {
     _getData();
@@ -59,6 +61,24 @@ class _PartesViewState extends State<PartesView> {
       log("Error antes de conectarse => ${e.toString()}");
     }
     valores = dataFromAPI!.vtaPedGs;
+    todosLosValores = valores;
+    log("valores: $valores todoslosvalores: $todosLosValores");
+  }
+
+  IconButton iconButtonCanviante() {
+    if (_textEditingController.text == "") {
+      return IconButton(onPressed: () {}, icon: const Icon(Icons.search));
+    } else {
+      return IconButton(
+        icon: const Icon(Icons.clear),
+        onPressed: () {
+          _textEditingController.text = "";
+          valores = todosLosValores;
+          log("Valores despues de bototnb $valores");
+          setState(() {});
+        },
+      );
+    }
   }
 
   @override
@@ -78,6 +98,7 @@ class _PartesViewState extends State<PartesView> {
                   padding: const EdgeInsets.all(15),
                   child: TextField(
                     textInputAction: TextInputAction.search,
+                    controller: _textEditingController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25.0),
@@ -91,9 +112,7 @@ class _PartesViewState extends State<PartesView> {
                           color: Colors.blue,
                         ),
                       ),
-                      suffixIcon: const InkWell(
-                        child: Icon(Icons.search),
-                      ),
+                      suffixIcon: iconButtonCanviante(),
                       contentPadding: const EdgeInsets.all(15.0),
                       hintText: 'Buscar...',
                     ),
@@ -116,7 +135,6 @@ class _PartesViewState extends State<PartesView> {
                               )
                               .toList();
                         });
-                        log("valores: $valores");
                       });
                     }, //toLowerCase().contains(
                     //string.toLowerCase(),
