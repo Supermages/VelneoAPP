@@ -97,9 +97,12 @@ class _PartesViewState extends State<PartesView> {
                       contentPadding: const EdgeInsets.all(15.0),
                       hintText: 'Buscar...',
                     ),
-                    onChanged: (string) {
-                      _debouncer.run(() {
+                    onChanged: (string) async {
+                      _isLoading = true;
+                      log("$_isLoading");
+                      await _debouncer.run(() {
                         setState(() {
+                          valores = [];
                           valores = dataFromAPI!.vtaPedGs
                               .where(
                                 (u) => (u.id
@@ -116,6 +119,9 @@ class _PartesViewState extends State<PartesView> {
                               )
                               .toList();
                         });
+                        _isLoading = false;
+
+                        log("$_isLoading");
                         log("valores: $valores");
                       });
                     }, //toLowerCase().contains(
@@ -123,64 +129,73 @@ class _PartesViewState extends State<PartesView> {
                   ),
                 ),
                 Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: const ClampingScrollPhysics(),
-                    padding: const EdgeInsets.all(5),
-                    itemCount: valores.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return GestureDetector(
-                        onTap: () {
-                          setId(dataFromAPI!.vtaPedGs[index].id);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const DetalleDePartesView()),
-                          );
-                        },
-                        child: Card(
-                          child: ClipPath(
-                            clipper: ShapeBorderClipper(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(3),
-                              ),
-                            ),
-                            child: Container(
-                              padding: const EdgeInsets.all(4),
-                              decoration: const BoxDecoration(
-                                border: Border(
-                                  left:
-                                      BorderSide(color: Colors.green, width: 5),
+                  child: _isLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          physics: const ClampingScrollPhysics(),
+                          padding: const EdgeInsets.all(5),
+                          itemCount: valores.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
+                              onTap: () {
+                                setId(dataFromAPI!.vtaPedGs[index].id);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const DetalleDePartesView()),
+                                );
+                              },
+                              child: Card(
+                                child: ClipPath(
+                                  clipper: ShapeBorderClipper(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(3),
+                                    ),
+                                  ),
+                                  child: Container(
+                                    padding: const EdgeInsets.all(4),
+                                    decoration: const BoxDecoration(
+                                      border: Border(
+                                        left: BorderSide(
+                                            color: Colors.green, width: 5),
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            "ID: ${valores[index].id}",
+                                            style:
+                                                const TextStyle(fontSize: 16),
+                                          ),
+                                          Text(
+                                            "Cliente: ${valores[index].clt}",
+                                            style:
+                                                const TextStyle(fontSize: 16),
+                                          ),
+                                          Text(
+                                            "Empresa: ${valores[index].emp}",
+                                            style:
+                                                const TextStyle(fontSize: 16),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                                      "ID: ${valores[index].id}",
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
-                                    Text(
-                                      "Cliente: ${valores[index].clt}",
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
-                                    Text(
-                                      "Empresa: ${valores[index].emp}",
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
                 ),
               ],
             ),
