@@ -1,419 +1,77 @@
-// To parse this JSON data, do
-//
-//     final welcome = welcomeFromJson(jsonString);
-
 import 'dart:convert';
+import 'dart:developer';
+import 'package:http/http.dart' as http;
+import 'package:velneoapp/api/modelos/api_post_detalle_de_parte_old.dart';
 
-PostDetPart welcomeFromJson(String str) =>
-    PostDetPart.fromJson(json.decode(str));
+/*
+DetPartes? dataFromAPI;
+  _getData() async {
+    try {
+      String url =
+          "https://demoapi.velneo.com/verp-api/vERP_2_dat_dat/v1/vta_ped_g/$idDet?fields=id,clt,emp,emp_div,fch,fch_ent,num_ped&api_key=api123";
+      http.Response res = await http.get(Uri.parse(url));
+      if (res.statusCode == 200) {
+        dataFromAPI = DetPartes.fromJson(json.decode(res.body));
+*/
+class Post {
+  const Post();
+  void postData({
+    required int idDet,
+    String? emp,
+    String? empdiv,
+    DateTime? fch,
+    DateTime? fchent,
+    String? numped,
+    int? clt,
+  }) async {
+    //https://demoapi.velneo.com/verp-api/vERP_2_dat_dat/v1/vta_ped_g/1?api_key=api123
+    PostDetPart? dataFromAPI;
+    try {
+      String url =
+          "https://demoapi.velneo.com/verp-api/vERP_2_dat_dat/v1/vta_ped_g/$idDet?api_key=api123";
+      http.Response res = await http.get(Uri.parse(url));
+      if (res.statusCode == 200) {
+        dataFromAPI = PostDetPart.fromJson(json.decode(res.body));
+        dataFromAPI.vtaPedG[0].id = idDet;
+        dataFromAPI.vtaPedG[0].clt = clt ?? dataFromAPI.vtaPedG[0].clt;
+        dataFromAPI.vtaPedG[0].emp = emp ?? dataFromAPI.vtaPedG[0].emp;
+        dataFromAPI.vtaPedG[0].empDiv = empdiv ?? dataFromAPI.vtaPedG[0].empDiv;
+        dataFromAPI.vtaPedG[0].fch = fch ?? dataFromAPI.vtaPedG[0].fch;
+        dataFromAPI.vtaPedG[0].fchEnt = fchent ?? dataFromAPI.vtaPedG[0].fchEnt;
+        dataFromAPI.vtaPedG[0].numPed = numped ?? dataFromAPI.vtaPedG[0].numPed;
+        String modifiedApiData = json.encode(dataFromAPI);
+        log("Lista: $modifiedApiData");
 
-String welcomeToJson(PostDetPart data) => json.encode(data.toJson());
+        /*var responsedel = await http.delete(Uri.parse(
+            "https://demoapi.velneo.com/verp-api/vERP_2_dat_dat/v1/vta_ped_g/$idDet?api_key=api123"));
+        if (responsedel.statusCode == 200) {
+          print('Dato eliminado');*/
 
-class PostDetPart {
-  int count;
-  int totalCount;
-  List<VtaPedG> vtaPedG;
+        var response = await http.post(
+          Uri.parse(
+              "https://demoapi.velneo.com/verp-api/vERP_2_dat_dat/v1/vta_ped_g/$idDet?api_key=api123"), // En un futuro si este link no funciona provar con https://demoapi.velneo.com/verp-api/vERP_2_dat_dat/v1/vta_ped_g?api_key=api123
+          headers: {
+            'Content-type': 'application/json'
+          }, // Establece el tipo de contenido de la solicitud
+          body: modifiedApiData, // Cuerpo de la solicitud en formato JSON
+        );
+        if (response.statusCode == 200) {
+          // La solicitud fue exitosa
+          log('Respuesta: ${response.body}');
+          log('Error: ${response.statusCode}');
+        } else {
+          // Ocurrió un error en la solicitud
+          log('Error: ${response.statusCode}');
+        }
+      } else {
+        log('Error al eliminar el dato');
+      }
 
-  PostDetPart({
-    required this.count,
-    required this.totalCount,
-    required this.vtaPedG,
-  });
-
-  factory PostDetPart.fromJson(Map<String, dynamic> json) => PostDetPart(
-        count: json["count"],
-        totalCount: json["total_count"],
-        vtaPedG: List<VtaPedG>.from(
-            json["vta_ped_g"].map((x) => VtaPedG.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "count": count,
-        "total_count": totalCount,
-        "vta_ped_g": List<dynamic>.from(vtaPedG.map((x) => x.toJson())),
-      };
-}
-
-class VtaPedG {
-  int id;
-  String emp;
-  String empDiv;
-  DateTime fch;
-  int eje;
-  String mes;
-  DateTime fchEnt;
-  int ser;
-  int serCnt;
-  int numDoc;
-  String numPed;
-  int clt;
-  int ctt;
-  int dirEnv;
-  int fpg;
-  int cmr;
-  String alm;
-  String obs;
-  String cnd;
-  int numLinTot;
-  int numLinSrv;
-  String est;
-  String linUlt;
-  int basGen;
-  int basRed;
-  int basSup;
-  int basEsp;
-  int basExe;
-  int basTot;
-  int basGenPdt;
-  int basRedPdt;
-  int basSupPdt;
-  int basEspPdt;
-  int basExePdt;
-  int basTotPdt;
-  int pot;
-  int porDto;
-  int basGenDto;
-  int basRedDto;
-  int basSupDto;
-  int basEspDto;
-  int basExeDto;
-  int basTotDto;
-  int impDto;
-  int porIvaGen;
-  int porIvaRed;
-  int porIvaSup;
-  int porIvaEsp;
-  double ivaGen;
-  int ivaRed;
-  int ivaSup;
-  int ivaEsp;
-  double ivaTot;
-  bool aplReq;
-  int porReqGen;
-  int porReqRed;
-  int porReqSup;
-  int porReqEsp;
-  int reqGen;
-  int reqRed;
-  int reqSup;
-  int reqEsp;
-  int reqTot;
-  bool aplRetAlq;
-  int basRetAlq;
-  int porRetAlq;
-  int retAlq;
-  bool aplRetIrp;
-  int basRetIrp;
-  int porRetIrp;
-  int retIrp;
-  double totPed;
-  bool ivaInc;
-  int impPdt;
-  int ecmIdPed;
-  String ecmNumPed;
-  String ecmTrkNum;
-  String ecmTrkUrl;
-  bool ecmFulFll;
-  bool ecmEnt;
-  int altUsr;
-  int modUsr;
-  DateTime altTim;
-  DateTime modTim;
-  bool off;
-  int offUsr;
-  String offTim;
-  String firDib;
-  String firBas64;
-  int lon;
-  int lat;
-  int alt;
-  String extensionExtVtaPedG;
-
-  VtaPedG({
-    required this.id,
-    required this.emp,
-    required this.empDiv,
-    required this.fch,
-    required this.eje,
-    required this.mes,
-    required this.fchEnt,
-    required this.ser,
-    required this.serCnt,
-    required this.numDoc,
-    required this.numPed,
-    required this.clt,
-    required this.ctt,
-    required this.dirEnv,
-    required this.fpg,
-    required this.cmr,
-    required this.alm,
-    required this.obs,
-    required this.cnd,
-    required this.numLinTot,
-    required this.numLinSrv,
-    required this.est,
-    required this.linUlt,
-    required this.basGen,
-    required this.basRed,
-    required this.basSup,
-    required this.basEsp,
-    required this.basExe,
-    required this.basTot,
-    required this.basGenPdt,
-    required this.basRedPdt,
-    required this.basSupPdt,
-    required this.basEspPdt,
-    required this.basExePdt,
-    required this.basTotPdt,
-    required this.pot,
-    required this.porDto,
-    required this.basGenDto,
-    required this.basRedDto,
-    required this.basSupDto,
-    required this.basEspDto,
-    required this.basExeDto,
-    required this.basTotDto,
-    required this.impDto,
-    required this.porIvaGen,
-    required this.porIvaRed,
-    required this.porIvaSup,
-    required this.porIvaEsp,
-    required this.ivaGen,
-    required this.ivaRed,
-    required this.ivaSup,
-    required this.ivaEsp,
-    required this.ivaTot,
-    required this.aplReq,
-    required this.porReqGen,
-    required this.porReqRed,
-    required this.porReqSup,
-    required this.porReqEsp,
-    required this.reqGen,
-    required this.reqRed,
-    required this.reqSup,
-    required this.reqEsp,
-    required this.reqTot,
-    required this.aplRetAlq,
-    required this.basRetAlq,
-    required this.porRetAlq,
-    required this.retAlq,
-    required this.aplRetIrp,
-    required this.basRetIrp,
-    required this.porRetIrp,
-    required this.retIrp,
-    required this.totPed,
-    required this.ivaInc,
-    required this.impPdt,
-    required this.ecmIdPed,
-    required this.ecmNumPed,
-    required this.ecmTrkNum,
-    required this.ecmTrkUrl,
-    required this.ecmFulFll,
-    required this.ecmEnt,
-    required this.altUsr,
-    required this.modUsr,
-    required this.altTim,
-    required this.modTim,
-    required this.off,
-    required this.offUsr,
-    required this.offTim,
-    required this.firDib,
-    required this.firBas64,
-    required this.lon,
-    required this.lat,
-    required this.alt,
-    required this.extensionExtVtaPedG,
-  });
-
-  factory VtaPedG.fromJson(Map<String, dynamic> json) => VtaPedG(
-        id: json["id"],
-        emp: json["emp"],
-        empDiv: json["emp_div"],
-        fch: DateTime.parse(json["fch"]),
-        eje: json["eje"],
-        mes: json["mes"],
-        fchEnt: DateTime.parse(json["fch_ent"]),
-        ser: json["ser"],
-        serCnt: json["ser_cnt"],
-        numDoc: json["num_doc"],
-        numPed: json["num_ped"],
-        clt: json["clt"],
-        ctt: json["ctt"],
-        dirEnv: json["dir_env"],
-        fpg: json["fpg"],
-        cmr: json["cmr"],
-        alm: json["alm"],
-        obs: json["obs"],
-        cnd: json["cnd"],
-        numLinTot: json["num_lin_tot"],
-        numLinSrv: json["num_lin_srv"],
-        est: json["est"],
-        linUlt: json["lin_ult"],
-        basGen: json["bas_gen"],
-        basRed: json["bas_red"],
-        basSup: json["bas_sup"],
-        basEsp: json["bas_esp"],
-        basExe: json["bas_exe"],
-        basTot: json["bas_tot"],
-        basGenPdt: json["bas_gen_pdt"],
-        basRedPdt: json["bas_red_pdt"],
-        basSupPdt: json["bas_sup_pdt"],
-        basEspPdt: json["bas_esp_pdt"],
-        basExePdt: json["bas_exe_pdt"],
-        basTotPdt: json["bas_tot_pdt"],
-        pot: json["pot"],
-        porDto: json["por_dto"],
-        basGenDto: json["bas_gen_dto"],
-        basRedDto: json["bas_red_dto"],
-        basSupDto: json["bas_sup_dto"],
-        basEspDto: json["bas_esp_dto"],
-        basExeDto: json["bas_exe_dto"],
-        basTotDto: json["bas_tot_dto"],
-        impDto: json["imp_dto"],
-        porIvaGen: json["por_iva_gen"],
-        porIvaRed: json["por_iva_red"],
-        porIvaSup: json["por_iva_sup"],
-        porIvaEsp: json["por_iva_esp"],
-        ivaGen: json["iva_gen"]?.toDouble(),
-        ivaRed: json["iva_red"],
-        ivaSup: json["iva_sup"],
-        ivaEsp: json["iva_esp"],
-        ivaTot: json["iva_tot"]?.toDouble(),
-        aplReq: json["apl_req"],
-        porReqGen: json["por_req_gen"],
-        porReqRed: json["por_req_red"],
-        porReqSup: json["por_req_sup"],
-        porReqEsp: json["por_req_esp"],
-        reqGen: json["req_gen"],
-        reqRed: json["req_red"],
-        reqSup: json["req_sup"],
-        reqEsp: json["req_esp"],
-        reqTot: json["req_tot"],
-        aplRetAlq: json["apl_ret_alq"],
-        basRetAlq: json["bas_ret_alq"],
-        porRetAlq: json["por_ret_alq"],
-        retAlq: json["ret_alq"],
-        aplRetIrp: json["apl_ret_irp"],
-        basRetIrp: json["bas_ret_irp"],
-        porRetIrp: json["por_ret_irp"],
-        retIrp: json["ret_irp"],
-        totPed: json["tot_ped"]?.toDouble(),
-        ivaInc: json["iva_inc"],
-        impPdt: json["imp_pdt"],
-        ecmIdPed: json["ecm_id_ped"],
-        ecmNumPed: json["ecm_num_ped"],
-        ecmTrkNum: json["ecm_trk_num"],
-        ecmTrkUrl: json["ecm_trk_url"],
-        ecmFulFll: json["ecm_ful_fll"],
-        ecmEnt: json["ecm_ent"],
-        altUsr: json["alt_usr"],
-        modUsr: json["mod_usr"],
-        altTim: DateTime.parse(json["alt_tim"]),
-        modTim: DateTime.parse(json["mod_tim"]),
-        off: json["off"],
-        offUsr: json["off_usr"],
-        offTim: json["off_tim"],
-        firDib: json["fir_dib"],
-        firBas64: json["fir_bas_64"],
-        lon: json["lon"],
-        lat: json["lat"],
-        alt: json["alt"],
-        extensionExtVtaPedG: json["extension_ext_vta_ped_g"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "emp": emp,
-        "emp_div": empDiv,
-        "fch": fch.toIso8601String(),
-        "eje": eje,
-        "mes": mes,
-        "fch_ent": fchEnt.toIso8601String(),
-        "ser": ser,
-        "ser_cnt": serCnt,
-        "num_doc": numDoc,
-        "num_ped": numPed,
-        "clt": clt,
-        "ctt": ctt,
-        "dir_env": dirEnv,
-        "fpg": fpg,
-        "cmr": cmr,
-        "alm": alm,
-        "obs": obs,
-        "cnd": cnd,
-        "num_lin_tot": numLinTot,
-        "num_lin_srv": numLinSrv,
-        "est": est,
-        "lin_ult": linUlt,
-        "bas_gen": basGen,
-        "bas_red": basRed,
-        "bas_sup": basSup,
-        "bas_esp": basEsp,
-        "bas_exe": basExe,
-        "bas_tot": basTot,
-        "bas_gen_pdt": basGenPdt,
-        "bas_red_pdt": basRedPdt,
-        "bas_sup_pdt": basSupPdt,
-        "bas_esp_pdt": basEspPdt,
-        "bas_exe_pdt": basExePdt,
-        "bas_tot_pdt": basTotPdt,
-        "pot": pot,
-        "por_dto": porDto,
-        "bas_gen_dto": basGenDto,
-        "bas_red_dto": basRedDto,
-        "bas_sup_dto": basSupDto,
-        "bas_esp_dto": basEspDto,
-        "bas_exe_dto": basExeDto,
-        "bas_tot_dto": basTotDto,
-        "imp_dto": impDto,
-        "por_iva_gen": porIvaGen,
-        "por_iva_red": porIvaRed,
-        "por_iva_sup": porIvaSup,
-        "por_iva_esp": porIvaEsp,
-        "iva_gen": ivaGen,
-        "iva_red": ivaRed,
-        "iva_sup": ivaSup,
-        "iva_esp": ivaEsp,
-        "iva_tot": ivaTot,
-        "apl_req": aplReq,
-        "por_req_gen": porReqGen,
-        "por_req_red": porReqRed,
-        "por_req_sup": porReqSup,
-        "por_req_esp": porReqEsp,
-        "req_gen": reqGen,
-        "req_red": reqRed,
-        "req_sup": reqSup,
-        "req_esp": reqEsp,
-        "req_tot": reqTot,
-        "apl_ret_alq": aplRetAlq,
-        "bas_ret_alq": basRetAlq,
-        "por_ret_alq": porRetAlq,
-        "ret_alq": retAlq,
-        "apl_ret_irp": aplRetIrp,
-        "bas_ret_irp": basRetIrp,
-        "por_ret_irp": porRetIrp,
-        "ret_irp": retIrp,
-        "tot_ped": totPed,
-        "iva_inc": ivaInc,
-        "imp_pdt": impPdt,
-        "ecm_id_ped": ecmIdPed,
-        "ecm_num_ped": ecmNumPed,
-        "ecm_trk_num": ecmTrkNum,
-        "ecm_trk_url": ecmTrkUrl,
-        "ecm_ful_fll": ecmFulFll,
-        "ecm_ent": ecmEnt,
-        "alt_usr": altUsr,
-        "mod_usr": modUsr,
-        "alt_tim": altTim.toIso8601String(),
-        "mod_tim": modTim.toIso8601String(),
-        "off": off,
-        "off_usr": offUsr,
-        "off_tim": offTim,
-        "fir_dib": firDib,
-        "fir_bas_64": firBas64,
-        "lon": lon,
-        "lat": lat,
-        "alt": alt,
-        "extension_ext_vta_ped_g": extensionExtVtaPedG,
-      };
+      // "https://demoapi.velneo.com/verp-api/vERP_2_dat_dat/v1/vta_ped_g?api_key=api123"),
+      //setState(() {});
+      /*} else {}*/
+    } catch (e) {
+      log("NONO fallo el  ${e.toString()}");
+    }
+  }
 }

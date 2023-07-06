@@ -12,6 +12,7 @@ import 'package:velneoapp/routes/constants.dart';
 
 void main() {
   runApp(const MyApp());
+  // imageCache.clear();
 }
 
 class MyApp extends StatefulWidget {
@@ -39,7 +40,7 @@ class _MyAppState extends State<MyApp> {
           detalleDeAlbaranesRoute: (context) => const DetalleDeAlbaranView(),
           detalleDePartesRoute: (context) => const DetalleDePartesView(),
           condicionesRoute: (context) => const CondicionesView(),
-          configRoute: (context) => const ConfigView()
+          configRoute: (context) => const ConfigView(),
         },
         theme: ThemeData(),
         darkTheme: ThemeData.dark(),

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:velneoapp/api/modelos/api_img.dart';
 import 'package:velneoapp/api/modelos/api_model_det_partes.dart';
-import 'package:velneoapp/api/modelos/post_detalle_de_parte.dart';
-import 'package:velneoapp/elementos_creados/botonImagen.dart';
+import 'package:velneoapp/api/modelos/api_post_detalle_de_parte.dart';
+import 'package:velneoapp/images/boton_imagen.dart';
 import 'package:velneoapp/dialogos/delete_file.dart';
 import 'package:velneoapp/routes/constants.dart';
 
@@ -49,14 +49,8 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
         throw ("NONOAAAAAAA");
       }
     } catch (e) {
-      log("NONO${e.toString()}");
+      log("NONO ewrror => ${e.toString()}");
     }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _getData();
   }
 
   @override

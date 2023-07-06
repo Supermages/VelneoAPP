@@ -66,10 +66,8 @@ class ImageApi {
       dataFromAPI = ApiImg.fromJson(
           json.decode(res.body)); //fromJson(json.decode(res.body));
       log("Lista: $dataFromAPI");
-      if (dataFromAPI != null) {
+      if (true) {
         return dataFromAPI.artM[0].img;
-      } else {
-        return "Nada";
       }
     } else {
       return throw ("hola");
