@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
@@ -50,14 +49,8 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
         throw ("NONOAAAAAAA");
       }
     } catch (e) {
-      log("NONO${e.toString()}");
+      log("NONO ewrror => ${e.toString()}");
     }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _getData();
   }
 
   @override

@@ -13,7 +13,7 @@ final patata = ConvertImages();
 File? hola;
 
 class BottonImage extends StatefulWidget {
-  int id;
+  final int id;
   BottonImage({
     Key? key,
     required this.id,
@@ -30,6 +30,12 @@ class _BottonImageState extends State<BottonImage> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    hola = null;
+    super.dispose();
+  }
+
   void ponerImagen() async {
     hola = await patata.convertBase64File(
         await ImageApi().patata(), "patata$id.png");
@@ -39,34 +45,33 @@ class _BottonImageState extends State<BottonImage> {
 
   String selectedImagePath = '';
   @override
-  IconButton build(BuildContext context) {
-    return IconButton(
-      iconSize: 200,
-      onPressed: () async {
-        await selectImage();
-        setState(() {});
-      },
-      icon: selectedImagePath.isEmpty
-          ? (hola == null)
-              ? Image.asset(
-                  "assets/images/image_placeholder.png",
-                  height: 200,
-                  width: 200,
-                  fit: BoxFit.fill,
-                )
-              : Image.file(
-                  hola!,
-                  height: 200,
-                  width: 200,
-                  fit: BoxFit.fill,
-                )
-          : Image.file(
-              File(selectedImagePath),
-              height: 200,
-              width: 200,
-              fit: BoxFit.fill,
-            ),
-    );
+  Widget build(BuildContext context) {
+    return (hola != null)
+        ? IconButton(
+            iconSize: 200,
+            onPressed: () async {
+              await selectImage();
+              setState(() {});
+            },
+            icon: selectedImagePath.isEmpty
+                ? Image.file(
+                    hola!,
+                    height: 200,
+                    width: 200,
+                    fit: BoxFit.fill,
+                  )
+                : Image.file(
+                    File(selectedImagePath),
+                    height: 200,
+                    width: 200,
+                    fit: BoxFit.fill,
+                  ),
+          )
+        : const SizedBox(
+            child: Center(child: CircularProgressIndicator()),
+            height: 200,
+            width: 200,
+          );
   }
 
   Future<void> selectImage() async {
