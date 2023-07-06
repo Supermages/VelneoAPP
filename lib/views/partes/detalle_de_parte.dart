@@ -94,71 +94,36 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Row(
-                              children: [
-                                Text("ID: ${dataFromAPI!.vtaPedG[0].id}"),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Row(
-                              //vtaPedGs.id
-                              children: [
-                                Text("Ciente: ${dataFromAPI!.vtaPedG[0].clt}"),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Row(
-                              children: [
-                                Text("Empresa: ${dataFromAPI!.vtaPedG[0].emp}"),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Row(
-                              children: [
-                                Text(
-                                    "Empresa Div.: ${dataFromAPI!.vtaPedG[0].empDiv}"),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Row(
-                              children: [
-                                Text("Fecha: ${dataFromAPI!.vtaPedG[0].fch}"),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Row(
-                              children: [
-                                Text(
-                                    "Fecha de entrada:\n${dataFromAPI!.vtaPedG[0].fchEnt}"),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Row(
-                              children: [
-                                Text(
-                                    "Numero de pedido: ${dataFromAPI!.vtaPedG[0].numPed}"),
-                              ],
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(top: 8.0),
-                            child: Divider(
-                                color: Color.fromARGB(191, 76, 175, 79),
-                                thickness: 6),
+                          Column(
+                            children: [
+                              for (final text in [
+                                "ID: ${dataFromAPI!.vtaPedG[0].id}",
+                                "Ciente: ${dataFromAPI!.vtaPedG[0].clt}",
+                                "Empresa: ${dataFromAPI!.vtaPedG[0].emp}",
+                                "Empresa Div.: ${dataFromAPI!.vtaPedG[0].empDiv}",
+                                "Fecha: ${dataFromAPI!.vtaPedG[0].fch}",
+                                "Fecha de entrada:\n${dataFromAPI!.vtaPedG[0].fchEnt}",
+                                "Numero de pedido: ${dataFromAPI!.vtaPedG[0].numPed}",
+                              ])
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(children: [
+                                    Text(
+                                      text,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    const Padding(
+                                      padding: EdgeInsets.only(top: 8.0),
+                                      child: Divider(
+                                          color:
+                                              Color.fromARGB(191, 76, 175, 79),
+                                          thickness: 6),
+                                    ),
+                                  ]),
+                                ),
+                            ],
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 30.0),

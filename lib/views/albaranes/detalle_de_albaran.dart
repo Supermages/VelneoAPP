@@ -89,40 +89,25 @@ class _DetalleDeAlbaranViewState extends State<DetalleDeAlbaranView> {
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Text("Cliente: ${dataFromAPI!.vtaFacG[0].clt}"),
-                              ],
+                          for (final text in [
+                            "Fecha: ${dataFromAPI!.vtaFacG[0].fch}",
+                            "Numero factura: ${dataFromAPI!.vtaFacG[0].numFac}",
+                            "Cliente: ${dataFromAPI!.vtaFacG[0].clt}",
+                            "Total factura: ${dataFromAPI!.vtaFacG[0].totFac}",
+                          ])
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    text,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Text("Fecha: ${dataFromAPI!.vtaFacG[0].fch}"),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Text(
-                                    "Numero factura: ${dataFromAPI!.vtaFacG[0].numFac}"),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Text(
-                                    "Total factura: ${dataFromAPI!.vtaFacG[0].totFac}"),
-                              ],
-                            ),
-                          ),
                         ],
                       ),
                     ),

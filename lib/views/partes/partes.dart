@@ -30,10 +30,14 @@ class Debouncer {
 }
 
 class _PartesViewState extends State<PartesView> {
+  String string = "";
+  final TextEditingController _searchController = TextEditingController();
   Partes? dataFromAPI;
   final _debouncer = Debouncer();
   bool _isLoading = true;
+  TextEditingController _textEditingController = TextEditingController();
   List<Prt> valores = [];
+  List<Prt> todosLosValores = [];
   @override
   void initState() {
     _getData();
@@ -59,6 +63,24 @@ class _PartesViewState extends State<PartesView> {
       log("Error antes de conectarse => ${e.toString()}");
     }
     valores = dataFromAPI!.vtaPedGs;
+    todosLosValores = valores;
+    log("valores: $valores todoslosvalores: $todosLosValores");
+  }
+
+  IconButton iconButtonCambiante() {
+    if (_textEditingController.text == "") {
+      return IconButton(onPressed: () {}, icon: const Icon(Icons.search));
+    } else {
+      return IconButton(
+        icon: const Icon(Icons.clear),
+        onPressed: () {
+          _textEditingController.text = "";
+          valores = todosLosValores;
+          log("Valores después de botón $valores");
+          setState(() {});
+        },
+      );
+    }
   }
 
   @override
@@ -72,12 +94,13 @@ class _PartesViewState extends State<PartesView> {
               child: CircularProgressIndicator(),
             )
           : Column(
-              children: <Widget>[
+              children: [
                 //Search Bar to List of typed Subject
                 Container(
                   padding: const EdgeInsets.all(15),
                   child: TextField(
                     textInputAction: TextInputAction.search,
+                    controller: _textEditingController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25.0),
@@ -91,9 +114,7 @@ class _PartesViewState extends State<PartesView> {
                           color: Colors.blue,
                         ),
                       ),
-                      suffixIcon: const InkWell(
-                        child: Icon(Icons.search),
-                      ),
+                      suffixIcon: iconButtonCambiante(),
                       contentPadding: const EdgeInsets.all(15.0),
                       hintText: 'Buscar...',
                     ),
@@ -119,83 +140,67 @@ class _PartesViewState extends State<PartesView> {
                               )
                               .toList();
                         });
-                        _isLoading = false;
-
-                        log("$_isLoading");
-                        log("valores: $valores");
                       });
                     }, //toLowerCase().contains(
                     //string.toLowerCase(),
                   ),
                 ),
                 Expanded(
-                  child: _isLoading
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : ListView.builder(
-                          shrinkWrap: true,
-                          physics: const ClampingScrollPhysics(),
-                          padding: const EdgeInsets.all(5),
-                          itemCount: valores.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return GestureDetector(
-                              onTap: () {
-                                setId(dataFromAPI!.vtaPedGs[index].id);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const DetalleDePartesView()),
-                                );
-                              },
-                              child: Card(
-                                child: ClipPath(
-                                  clipper: ShapeBorderClipper(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(3),
-                                    ),
-                                  ),
-                                  child: Container(
-                                    padding: const EdgeInsets.all(4),
-                                    decoration: const BoxDecoration(
-                                      border: Border(
-                                        left: BorderSide(
-                                            color: Colors.green, width: 5),
-                                      ),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            "ID: ${valores[index].id}",
-                                            style:
-                                                const TextStyle(fontSize: 16),
-                                          ),
-                                          Text(
-                                            "Cliente: ${valores[index].clt}",
-                                            style:
-                                                const TextStyle(fontSize: 16),
-                                          ),
-                                          Text(
-                                            "Empresa: ${valores[index].emp}",
-                                            style:
-                                                const TextStyle(fontSize: 16),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: const ClampingScrollPhysics(),
+                    padding: const EdgeInsets.all(5),
+                    itemCount: valores.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return GestureDetector(
+                        onTap: () {
+                          setId(dataFromAPI!.vtaPedGs[index].id);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const DetalleDePartesView()),
+                          );
+                        },
+                        child: Card(
+                          child: ClipPath(
+                            clipper: ShapeBorderClipper(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(3),
+                              ),
+                            ),
+                            child: Container(
+                              padding: const EdgeInsets.all(4),
+                              decoration: const BoxDecoration(
+                                border: Border(
+                                  left:
+                                      BorderSide(color: Colors.green, width: 5),
                                 ),
                               ),
-                            );
-                          },
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    for (final text in [
+                                      "ID: ${valores[index].id}",
+                                      "Cliente: ${valores[index].clt}",
+                                      "Empresa: ${valores[index].emp}"
+                                    ])
+                                      Text(
+                                        text,
+                                        style: const TextStyle(fontSize: 16),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
