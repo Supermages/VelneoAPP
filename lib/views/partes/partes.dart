@@ -35,7 +35,7 @@ class _PartesViewState extends State<PartesView> {
   Partes? dataFromAPI;
   final _debouncer = Debouncer();
   bool _isLoading = true;
-  TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController _textEditingController = TextEditingController();
   List<Prt> valores = [];
   List<Prt> todosLosValores = [];
   @override
