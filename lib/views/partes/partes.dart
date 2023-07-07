@@ -118,12 +118,9 @@ class _PartesViewState extends State<PartesView> {
                       contentPadding: const EdgeInsets.all(15.0),
                       hintText: 'Buscar...',
                     ),
-                    onChanged: (string) async {
-                      _isLoading = true;
-                      log("$_isLoading");
-                      await _debouncer.run(() {
+                    onChanged: (string) {
+                      _debouncer.run(() {
                         setState(() {
-                          valores = [];
                           valores = dataFromAPI!.vtaPedGs
                               .where(
                                 (u) => (u.id
