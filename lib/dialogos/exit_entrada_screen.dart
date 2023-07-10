@@ -5,7 +5,7 @@ Future<bool> showExitEntradaScreenDialog(BuildContext context) {
   return showGenericDialogTwoOptions<bool>(
     context: context,
     title: 'Salir',
-    content: '¿Esta seguro de que quiere volver a la entrada?',
+    content: '¿Esta seguro que quiere volver a la entrada?',
     optionsBuilder: () => {
       'No': false,
       'Sí': true,

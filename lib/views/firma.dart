@@ -78,7 +78,7 @@ class _FirmaViewState extends State<FirmaView> {
                   if (offsetValue == Offset.zero) {
                     showErrorDialog(
                       context,
-                      "Debes de poner tu firma para continuar",
+                      "Debes poner tu firma para continuar.",
                     );
                   } else {
                     await convertirImagen(

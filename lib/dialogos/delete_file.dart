@@ -5,7 +5,7 @@ Future<bool> showDeleteFileDialog(BuildContext context) {
   return showGenericDialogTwoOptions<bool>(
     context: context,
     title: 'Eliminar',
-    content: '¿Esta seguro de que quiere eliminar este parte?',
+    content: '¿Esta seguro que quiere eliminar este parte?',
     optionsBuilder: () => {
       'No': false,
       'Sí': true,

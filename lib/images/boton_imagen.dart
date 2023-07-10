@@ -34,40 +34,49 @@ class _BottonImageState extends State<BottonImage> {
   }
 
   void ponerImagen() async {
-    archivo = await convertimagen.convertBase64File(
-        await ImageApi().patata(), "patata$id.png");
-    setState(() {});
+    try {
+      archivo = await convertimagen.convertBase64File(
+          await ImageApi().patata(), "patata$id.png");
+      setState(() {});
+    } catch (e) {
+      log("$e");
+    }
   }
 
   String selectedImagePath = '';
   @override
   Widget build(BuildContext context) {
-    return (archivo != null)
-        ? IconButton(
-            iconSize: 200,
-            onPressed: () async {
-              await selectImage();
-              setState(() {});
-            },
-            icon: selectedImagePath.isEmpty
-                ? Image.file(
-                    archivo!,
-                    height: 200,
-                    width: 200,
-                    fit: BoxFit.fill,
-                  )
-                : Image.file(
-                    File(selectedImagePath),
-                    height: 200,
-                    width: 200,
-                    fit: BoxFit.fill,
-                  ),
-          )
-        : const SizedBox(
-            height: 200,
-            width: 200,
-            child: Center(child: CircularProgressIndicator()),
-          );
+    try {
+      return (archivo != null)
+          ? IconButton(
+              iconSize: 200,
+              onPressed: () async {
+                await selectImage();
+                setState(() {});
+              },
+              icon: selectedImagePath.isEmpty
+                  ? Image.file(
+                      archivo!,
+                      height: 200,
+                      width: 200,
+                      fit: BoxFit.fill,
+                    )
+                  : Image.file(
+                      File(selectedImagePath),
+                      height: 200,
+                      width: 200,
+                      fit: BoxFit.fill,
+                    ),
+            )
+          : const SizedBox(
+              height: 200,
+              width: 200,
+              child: Center(child: CircularProgressIndicator()),
+            );
+    } catch (e) {
+      log("$e");
+      return const Text("Se ha producido un error");
+    }
   }
 
   Future<void> selectImage() async {
