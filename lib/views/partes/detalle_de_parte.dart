@@ -103,10 +103,10 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
                                 "Empresa Div.: ${dataFromAPI!.vtaPedG[0].empDiv}",
                                 "Fecha: ${dataFromAPI!.vtaPedG[0].fch}",
                                 "Fecha de entrada:\n${dataFromAPI!.vtaPedG[0].fchEnt}",
-                                "Numero de pedido:\n${dataFromAPI!.vtaPedG[0].numPed}",
+                                "Numero de pedido: \n${dataFromAPI!.vtaPedG[0].numPed}",
                               ])
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(7.0),
                                   child: Row(children: [
                                     Text(
                                       text,
@@ -115,7 +115,7 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
                                       ),
                                     ),
                                     const Padding(
-                                      padding: EdgeInsets.only(top: 8.0),
+                                      padding: EdgeInsets.only(top: 7.0),
                                       child: Divider(
                                           color:
                                               Color.fromARGB(191, 76, 175, 79),
@@ -126,7 +126,7 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
                             ],
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 30.0),
+                            padding: const EdgeInsets.only(top: 15.0),
                             child: Container(
                               decoration: BoxDecoration(
                                 color: Colors.white,
