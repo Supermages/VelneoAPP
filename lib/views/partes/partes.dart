@@ -31,11 +31,10 @@ class Debouncer {
 
 class _PartesViewState extends State<PartesView> {
   String string = "";
-  final TextEditingController _searchController = TextEditingController();
   Partes? dataFromAPI;
   final _debouncer = Debouncer();
   bool _isLoading = true;
-  TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController _textEditingController = TextEditingController();
   List<Prt> valores = [];
   List<Prt> todosLosValores = [];
   @override

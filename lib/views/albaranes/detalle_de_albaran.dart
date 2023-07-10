@@ -78,7 +78,7 @@ class _DetalleDeAlbaranViewState extends State<DetalleDeAlbaranView> {
                         borderRadius: BorderRadius.circular(3))),
                 child: Card(
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.23,
+                    height: MediaQuery.of(context).size.height * 0.25,
                     decoration: const BoxDecoration(
                       border: Border(
                         left: BorderSide(
@@ -91,7 +91,7 @@ class _DetalleDeAlbaranViewState extends State<DetalleDeAlbaranView> {
                         children: [
                           for (final text in [
                             "Fecha: ${dataFromAPI!.vtaFacG[0].fch}",
-                            "Numero factura: ${dataFromAPI!.vtaFacG[0].numFac}",
+                            "Numero factura:\n${dataFromAPI!.vtaFacG[0].numFac}",
                             "Cliente: ${dataFromAPI!.vtaFacG[0].clt}",
                             "Total factura: ${dataFromAPI!.vtaFacG[0].totFac}",
                           ])

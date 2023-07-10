@@ -106,7 +106,7 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
                                 "Numero de pedido: \n${dataFromAPI!.vtaPedG[0].numPed}",
                               ])
                                 Padding(
-                                  padding: const EdgeInsets.all(.0),
+                                  padding: const EdgeInsets.all(7.0),
                                   child: Row(children: [
                                     Text(
                                       text,
@@ -115,7 +115,7 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
                                       ),
                                     ),
                                     const Padding(
-                                      padding: EdgeInsets.only(top: 8.0),
+                                      padding: EdgeInsets.only(top: 7.0),
                                       child: Divider(
                                           color:
                                               Color.fromARGB(191, 76, 175, 79),
@@ -126,7 +126,7 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
                             ],
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 10.0),
+                            padding: const EdgeInsets.only(top: 15.0),
                             child: Container(
                               decoration: BoxDecoration(
                                 color: Colors.white,
