@@ -117,6 +117,8 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
                       hintText: 'Buscar...',
                     ),
                     onChanged: (string) {
+                      _isLoading = true;
+                      log("$_isLoading");
                       _debouncer.run(() {
                         setState(() {
                           valores = dataFromAPI!.vtaFacG
@@ -131,6 +133,8 @@ class _AlbaranesVentaViewState extends State<AlbaranesVentaView> {
                               )
                               .toList();
                         });
+                        _isLoading = false;
+                        log("$_isLoading");
                         log("valores: $valores");
                       });
                     }, //toLowerCase().contains(
