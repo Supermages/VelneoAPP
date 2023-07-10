@@ -103,7 +103,7 @@ class _DetalleDePartesViewState extends State<DetalleDePartesView> {
                                 "Empresa Div.: ${dataFromAPI!.vtaPedG[0].empDiv}",
                                 "Fecha: ${dataFromAPI!.vtaPedG[0].fch}",
                                 "Fecha de entrada:\n${dataFromAPI!.vtaPedG[0].fchEnt}",
-                                "Numero de pedido: ${dataFromAPI!.vtaPedG[0].numPed}",
+                                "Numero de pedido:\n${dataFromAPI!.vtaPedG[0].numPed}",
                               ])
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
